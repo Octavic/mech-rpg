@@ -4,6 +4,9 @@
 /[Bb]uild/
 /[Bb]uilds/
 /Assets/AssetStoreTools*
+/ProjectSettings/
+*.meta
+StyleCop.Cache
 
 # Visual Studio 2015 cache directory
 /.vs/
