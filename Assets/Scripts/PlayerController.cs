@@ -12,6 +12,7 @@ namespace Assets.Scripts
     using System.Text;
     using Mech;
     using UnityEngine;
+    using Controls;
 
     /// <summary>
     /// The player  controller
@@ -21,13 +22,15 @@ namespace Assets.Scripts
         /// <summary>
         /// The player's index
         /// </summary>
-        private int playerIndex;
+        public int PlayerIndex;
 
         /// <summary>
         /// Called once per frame
         /// </summary>
         protected override void Update()
         {
+            var xMovement = Input.GetAxis(ControlNames.GetAxisName(Axises.Horizontal, this.PlayerIndex));
+            Mech.transform.position += new Vector3(xMovement * Mech.BaseStats.Mobility, 0, 0);
             base.Update();
         }
     }

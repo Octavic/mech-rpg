@@ -15,7 +15,7 @@ namespace Assets.Scripts.Mech
     /// <summary>
     /// The base mech object
     /// </summary>
-    public class BaseMech : MonoBehaviour
+    public abstract class BaseMech : MonoBehaviour
     {
         /// <summary>
         /// Id of the mech
@@ -33,8 +33,18 @@ namespace Assets.Scripts.Mech
         public MechStats BaseStats;
 
         /// <summary>
-        /// The controller in charge of this mech
+        /// The sprite renderer
         /// </summary>
-        private BaseController controller;
+        public SpriteRenderer Renderer;
+
+        /// <summary>
+        /// Used for initialization
+        /// </summary>
+        protected void Start()
+        {
+            this.Renderer = this.GetComponent<SpriteRenderer>();
+            var sprites = Resources.LoadAll<Sprite>(this.MechaName);
+            this.Renderer.sprite = sprites[0];
+        }
     }
 }
