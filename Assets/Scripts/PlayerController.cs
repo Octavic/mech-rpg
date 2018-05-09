@@ -27,11 +27,14 @@ namespace Assets.Scripts
         /// <summary>
         /// Called once per frame
         /// </summary>
-        protected override void Update()
+        protected override void FixedUpdate()
         {
             var xMovement = Input.GetAxis(ControlNames.GetAxisName(Axises.Horizontal, this.PlayerIndex));
-            Mech.transform.position += new Vector3(xMovement * Mech.BaseStats.Mobility, 0, 0);
-            base.Update();
+            var isJumping = Input.GetButton(ControlNames.GetButtonName(Buttons.Jump, this.PlayerIndex));
+
+            this.Mech.Move(xMovement, isJumping);
+
+            base.FixedUpdate();
         }
     }
 }

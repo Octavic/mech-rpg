@@ -1,27 +1,22 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="Buttons.cs">
+//  <copyright file="BaseMech.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Controls
+namespace Assets.Scripts.Mech
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
 
-    /// <summary>
-    /// A collection of buttons
-    /// </summary>
-    public enum Buttons
+    public static class Config
     {
-        LeftShoulder,
-        RightShoulder,
-        Start,
-        Jump,
-        LeftWeapon,
-        RightWeapon,
-        MechAbility
+        public const float MinMovementSpeed = 2.0f;
+        public const float MaxMovementSpeed = 4.0f;
+
+        public const float MinJumpSpeed = 3.0f;
+        public const float MaxJumpSpeed = 6.0f;
     }
 }

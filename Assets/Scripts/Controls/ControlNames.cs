@@ -27,12 +27,12 @@ namespace Assets.Scripts.Controls
         static ControlNames()
         {
             buttonNames = new Dictionary<Buttons, string>();
-            buttonNames[Buttons.L] = "L";
-            buttonNames[Buttons.R] = "R";
-            buttonNames[Buttons.Jump] = "A";
-            buttonNames[Buttons.LeftWeapon] = "X";
-            buttonNames[Buttons.RightWeapon] = "B";
-            buttonNames[Buttons.MechAbility] = "Y";
+            buttonNames[Buttons.LeftShoulder] = "LeftShoulder";
+            buttonNames[Buttons.RightShoulder] = "RightShoulder";
+            buttonNames[Buttons.Jump] = "Jump";
+            buttonNames[Buttons.LeftWeapon] = "LeftWeapon";
+            buttonNames[Buttons.RightWeapon] = "RightWeapon";
+            buttonNames[Buttons.MechAbility] = "MechAbility";
             buttonNames[Buttons.Start] = "Start";
         }
 

@@ -33,7 +33,7 @@ namespace Assets.Scripts
         /// <summary>
         /// Called once per frame
         /// </summary>
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
         }
     }
