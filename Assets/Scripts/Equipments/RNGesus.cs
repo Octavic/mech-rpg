@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="EquipmentStats.cs">
+//  <copyright file="EquipmentRarity.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -12,15 +12,10 @@ namespace Assets.Scripts.Equipments
     using System.Text;
 
     /// <summary>
-    /// The basic Equipment stats
+    /// Generates all equipments
     /// </summary>
-    [Serializable]
-    public struct EquipmentStats
+    public static class RNGesus
     {
-        public float Damage;
-        public float ReloadSpeed;
-        public float CritChance;
-        public float CritDamage;
-        public float Impact;
+       
     }
 }

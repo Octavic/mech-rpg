@@ -1,10 +1,10 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="EquipmentStats.cs">
+//  <copyright file="LevelController.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Equipments
+namespace Assets.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -12,15 +12,10 @@ namespace Assets.Scripts.Equipments
     using System.Text;
 
     /// <summary>
-    /// The basic Equipment stats
+    /// A collection of tags
     /// </summary>
-    [Serializable]
-    public struct EquipmentStats
+    public static class Tags
     {
-        public float Damage;
-        public float ReloadSpeed;
-        public float CritChance;
-        public float CritDamage;
-        public float Impact;
+        public const string LevelController = "LevelController";
     }
 }

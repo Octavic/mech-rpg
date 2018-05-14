@@ -15,17 +15,12 @@ namespace Assets.Scripts.Equipments
     /// <summary>
     /// Defines the rarity of a Equipment
     /// </summary>
-    [Serializable]
-    public struct EquipmentRarity
+    public enum EquipmentRarity
     {
-        /// <summary>
-        /// Name of the rarity
-        /// </summary>
-        public string Name;
-
-        /// <summary>
-        /// The color of the rarity
-        /// </summary>
-        public Color Color;
+       Common,
+       Uncommon,
+       Rare,
+       Epic,
+       Legendary
     }
 }

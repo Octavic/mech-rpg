@@ -18,21 +18,21 @@ namespace Assets.Scripts.Utils
     public class WeightedList<T>
     {
         /// <summary>
-        /// The internal list
+        /// The floaternal list
         /// </summary>
-        private Dictionary<T, int> items;
+        private Dictionary<T, float> items;
 
         /// <summary>
         /// The total weight
         /// </summary>
-        private int totalWeight;
+        private float totalWeight;
 
         /// <summary>
         /// Creates a new instance of the <see cref="WeightedList{T}"/> class
         /// </summary>
         public WeightedList()
         {
-            this.items = new Dictionary<T, int>();
+            this.items = new Dictionary<T, float>();
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace Assets.Scripts.Utils
         /// </summary>
         /// <param name="item">Target item</param>
         /// <returns>The weight, 0 if none</returns>
-        public int GetWeight(T item)
+        public float GetWeight(T item)
         {
-            int existWeight;
+            float existWeight;
             if (this.items.TryGetValue(item, out existWeight))
             {
                 return existWeight;
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Utils
         /// </summary>
         /// <param name="item">Target item to be added</param>
         /// <param name="weight">Target item's weight</param>
-        public void AddItem(T item, int weight)
+        public void AddItem(T item, float weight)
         {
             this.totalWeight += weight;
 
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Utils
         /// </summary>
         /// <param name="item">Target item</param>
         /// <param name="weight">desired weight to be removed</param>
-        public void RemoveItem(T item, int weight)
+        public void RemoveItem(T item, float weight)
         {
             var diff = this.GetWeight(item) - weight;
             if (diff< 0)
@@ -98,15 +98,15 @@ namespace Assets.Scripts.Utils
         /// <returns>The result item</returns>
         public T GetItem()
         {
-            var stoppingPoint = GlobalRandom.Next(this.totalWeight);
+            var stoppingPofloat = GlobalRandom.NextFloat() * this.totalWeight;
             foreach(var item in this.items.ToList())
             {
-                if (stoppingPoint < item.Value)
+                if (stoppingPofloat < item.Value)
                 {
                     return item.Key;
                 }
 
-                stoppingPoint -= item.Value;
+                stoppingPofloat -= item.Value;
             }
 
             throw new Exception("Error getting item");

@@ -1,24 +1,22 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="EquipmentClass.cs">
+//  <copyright file="MechFloorCheck.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Equipments
+namespace Assets.Scripts.Mech
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using UnityEngine;
 
     /// <summary>
-    /// An 'enum' of all possible Equipment classes
+    /// Collider used to determine if a mech is in air or not
     /// </summary>
-    public enum EquipmentClass
+    public class MechFloorCheck : MonoBehaviour
     {
-        Small,
-        Medium,
-        Large,
-        Capital
+        public BaseMech Mech;
     }
 }

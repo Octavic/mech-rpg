@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="MechStats.cs">
+//  <copyright file="EquipmentSlot.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -10,30 +10,28 @@ namespace Assets.Scripts.Mech
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Utils;
+    using UnityEngine;
+    using Equipments;
 
     /// <summary>
-    /// Status for a mech
+    /// Defines a slot that equipment can be placed in
     /// </summary>
     [Serializable]
-    public struct MechStats
+    public struct EquipmentSlot
     {
         /// <summary>
-        ///  All of the following values are capped from 0 - 100
+        /// If the slot can mount shoulder weapons
         /// </summary>
-        public float Mobility;
-        public float HP;
-        public float FirePower;
-        public float WeightCap;
+        bool IsShoulder;
 
         /// <summary>
-        /// The amount of jumps possible  in air (Excluding the base jump off of the ground
+        /// If the gievn equipment fits in this slot
         /// </summary>
-        public int TotalJumps;
-
-        public float GetMobilityValue(Lerpable l)
+        /// <param name="equipment">Target equipment</param>
+        /// <returns>True if the equipment fits</returns>
+        public bool CanMount(BaseEquipment equipment)
         {
-            return Config.Lerpables[l].Apply(this.Mobility / 100);
+            return this.IsShoulder || equipment.IsShoulderWeapon;
         }
     }
 }

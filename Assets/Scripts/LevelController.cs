@@ -22,12 +22,5 @@ namespace Assets.Scripts
         /// </summary>
         public Vector2 Gravity;
 
-        /// <summary>
-        /// Used for initialization
-        /// </summary>
-        private void Start()
-        {
-            Physics2D.gravity = this.Gravity;
-        }
     }
 }

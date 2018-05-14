@@ -19,7 +19,7 @@ namespace Assets.Scripts.Equipments
     public abstract class BaseEquipment : MonoBehaviour
     {
         /// <summary>
-        /// Id of the quipment
+        /// Id of the equipment
         /// </summary>
         public int EquipmentId;
 
@@ -34,19 +34,20 @@ namespace Assets.Scripts.Equipments
         public EquipmentRarity Rarity;
 
         /// <summary>
-        /// Class of the weapon
-        /// </summary>
-        public EquipmentClass Class;
-
-        /// <summary>
         /// If the weapon can be mounted on shoulder
         /// </summary>
-        public bool CanMountShoulder;
+        public virtual bool IsArmWeapon { get; protected set; }
 
         /// <summary>
         /// If the weapon can be mounted on arms
         /// </summary>
-        public bool CanMountArms;
+        public virtual bool IsShoulderWeapon
+        {
+            get
+            {
+                return !this.IsArmWeapon;
+            }
+        }
 
         /// <summary>
         /// A list of Equipment properties

@@ -1,26 +1,26 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="EquipmentStats.cs">
+//  <copyright file="MechEquipmentSlots.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Equipments
+namespace Assets.Scripts.Mech
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Equipments;
 
     /// <summary>
-    /// The basic Equipment stats
+    /// Defines a mech's equipment slots
     /// </summary>
     [Serializable]
-    public struct EquipmentStats
+    public struct MechEquipmentSlots
     {
-        public float Damage;
-        public float ReloadSpeed;
-        public float CritChance;
-        public float CritDamage;
-        public float Impact;
+        public EquipmentSlot LeftShoulder;
+        public EquipmentSlot RightShoulder;
+        public EquipmentSlot LeftArm;
+        public EquipmentSlot RightArm;
     }
 }

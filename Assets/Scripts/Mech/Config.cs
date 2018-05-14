@@ -11,12 +11,49 @@ namespace Assets.Scripts.Mech
     using System.Linq;
     using System.Text;
 
+    public struct LerpableValue
+    {
+        public float Min;
+        public float Max;
+        public LerpableValue(float min, float max)
+        {
+            this.Min = min;
+            this.Max = max;
+        }
+
+        public float Apply(float t)
+        {
+            return Utils.Utils.Lerp(this.Min, this.Max, t);
+        }
+    }
+
+    public enum Lerpable
+    {
+        MovementAcceleration,
+        TopSpeed,
+        MovementDecay,
+        InitialJumpSpeed,
+        FallSpeed
+    }
+
     public static class Config
     {
-        public const float MinMovementSpeed = 2.0f;
-        public const float MaxMovementSpeed = 4.0f;
+        static Config()
+        {
+            Lerpables = new Dictionary<Lerpable, LerpableValue>();
+            Lerpables[Lerpable.MovementAcceleration] = new LerpableValue(0.1f, 0.5f);
+            Lerpables[Lerpable.TopSpeed] = new LerpableValue(0.02f, 0.05f);
+            Lerpables[Lerpable.MovementDecay] = new LerpableValue(2.0f, 3.0f);
+            Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.02f, 0.03f);
+            Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.04f, 0.05f);
+        }
 
-        public const float MinJumpSpeed = 3.0f;
-        public const float MaxJumpSpeed = 6.0f;
+        /// <summary>
+        /// All of possible lerpables and their min/max values
+        /// </summary>
+        public static Dictionary<Lerpable, LerpableValue> Lerpables { get; private set; }
+
+        public const float SpeedDecayFactor = 0.8f;
+        public const float GravityFactor = 0.3f;
     }
 }
