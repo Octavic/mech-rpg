@@ -67,7 +67,7 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// used for initialization
         /// </summary>
-        private void Start()
+        protected virtual void Start()
         {
             this.Sprites = Resources.LoadAll<Sprite>(this.SpriteSheetPath).ToList();
             this.renderer = this.GetComponent<SpriteRenderer>();
@@ -94,28 +94,43 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// Called once per frame
         /// </summary>
-        private void Update()
+        protected virtual void Update()
         {
-            if (this.currentClip != null)
+            // Nothing to play
+            if (this.currentClip == null)
             {
-                this.timeTillNextFrame -= Time.deltaTime;
-                if (this.timeTillNextFrame < 0)
-                {
-                    this.currentIndex++;
-                    this.timeTillNextFrame = this.currentClip.Delay;
+                return;
+            }
 
-                    // Reached the end of clip
-                    if (this.currentIndex >= this.currentClip.ClipCount)
-                    {
-                        if (this.currentClip.ShouldLoop)
-                        {
-                            this.PlayClip(this.currentClip);
-                        }
-                        else
-                        {
-                            this.currentClip = null;
-                        }
-                    }
+            this.timeTillNextFrame -= Time.deltaTime;
+
+            // Not time to switch yet
+            if (this.timeTillNextFrame > 0)
+            {
+                return;
+            }
+
+            this.currentIndex++;
+
+            if (this.currentIndex >= this.Sprites.Count)
+            {
+                Debug.LogError("Sprite index out of range: " + this.currentIndex);
+                return;
+            }
+
+            this.renderer.sprite = this.Sprites[this.currentIndex];
+            this.timeTillNextFrame = this.currentClip.Delay;
+
+            // Reached the end of clip
+            if (this.currentIndex >= this.currentClip.ClipCount)
+            {
+                if (this.currentClip.ShouldLoop)
+                {
+                    this.PlayClip(this.currentClip);
+                }
+                else
+                {
+                    this.currentClip = null;
                 }
             }
         }

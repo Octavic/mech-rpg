@@ -41,6 +41,7 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// The final  states of a mech
         /// </summary>
+        [HideInInspector]
         public MechStats EffectiveStats;
 
         /// <summary>
