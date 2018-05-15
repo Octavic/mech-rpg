@@ -11,7 +11,7 @@ namespace Assets.Scripts.Mech
     using System.Linq;
     using System.Text;
 
-    public struct LerpableValue
+    public class LerpableValue
     {
         public float Min;
         public float Max;

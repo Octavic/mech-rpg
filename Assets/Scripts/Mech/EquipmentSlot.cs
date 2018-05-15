@@ -17,7 +17,7 @@ namespace Assets.Scripts.Mech
     /// Defines a slot that equipment can be placed in
     /// </summary>
     [Serializable]
-    public struct EquipmentSlot
+    public class EquipmentSlot
     {
         /// <summary>
         /// If the slot can mount shoulder weapons

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Mech
     /// Status for a mech
     /// </summary>
     [Serializable]
-    public struct MechStats
+    public class MechStats
     {
         /// <summary>
         ///  All of the following values are capped from 0 - 100

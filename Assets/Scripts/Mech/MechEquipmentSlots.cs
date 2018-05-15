@@ -16,7 +16,7 @@ namespace Assets.Scripts.Mech
     /// Defines a mech's equipment slots
     /// </summary>
     [Serializable]
-    public struct MechEquipmentSlots
+    public class MechEquipmentSlots
     {
         public EquipmentSlot LeftShoulder;
         public EquipmentSlot RightShoulder;

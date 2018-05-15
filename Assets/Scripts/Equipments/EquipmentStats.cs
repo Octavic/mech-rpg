@@ -15,7 +15,7 @@ namespace Assets.Scripts.Equipments
     /// The basic Equipment stats
     /// </summary>
     [Serializable]
-    public struct EquipmentStats
+    public class EquipmentStats
     {
         public float Damage;
         public float ReloadSpeed;
