@@ -22,7 +22,7 @@ namespace Assets.Scripts.Equipments.EquipmentProperty
         public int Id;
 
         /// <summary>
-        /// How strong the effect is
+        /// How strong the effect is. Always between 0 and 1 with 0 being the weakest, and 1 being the strongest
         /// </summary>
         public float Strength;
 

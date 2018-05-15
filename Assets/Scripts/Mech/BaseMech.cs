@@ -60,6 +60,11 @@ namespace Assets.Scripts.Mech
         public bool IsAirborne { get; set; }
 
         /// <summary>
+        /// If the unit is facing left or right
+        /// </summary>
+        public bool IsFacingRight { get; private set; }
+
+        /// <summary>
         /// Keeps track of jump status
         /// </summary>
         protected bool CanGroundJump { get; private set; }
@@ -78,10 +83,12 @@ namespace Assets.Scripts.Mech
             //  Flip the sprite based on x movement
             if (xMovement < 0)
             {
+                this.IsFacingRight = false;
                 this.transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (xMovement > 0)
             {
+                this.IsFacingRight = true;
                 this.transform.localScale = new Vector3(1, 1, 1);
             }
 
