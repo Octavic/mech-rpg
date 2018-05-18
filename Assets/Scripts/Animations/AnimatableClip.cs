@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="AnimatorClip.cs">
+//  <copyright file="AnimatableClip.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -13,10 +13,10 @@ namespace Assets.Scripts.Animations
     using UnityEngine;
 
     /// <summary>
-    /// Defines a clip of an animation
+    /// Defines a series of sprites to be used as animation
     /// </summary>
     [Serializable]
-    public class AnimatorClip
+    public class AnimatableClip
     {
         /// <summary>
         /// A unique name used to identify the clip

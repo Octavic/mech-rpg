@@ -25,12 +25,12 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// All of the possible animations
         /// </summary>
-        public List<AnimatorClip> Animations;
+        public List<AnimatableClip> Animations;
 
         /// <summary>
         /// A hash of name=>animation
         /// </summary>
-        private Dictionary<string, AnimatorClip> AnimationHash;
+        private Dictionary<string, AnimatableClip> AnimationHash;
 
         /// <summary>
         /// The actual sprite sheet's sub sprites
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// The clip currently going on
         /// </summary>
-        private AnimatorClip currentClip;
+        private AnimatableClip currentClip;
         private int currentIndex;
         private float timeTillNextFrame;
 
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Animations
         /// <param name="clipName">The target clip</param>
         public void PlayClip(string clipName)
         {
-            AnimatorClip clip;
+            AnimatableClip clip;
             if (!this.AnimationHash.TryGetValue(clipName, out clip))
             {
                 Debug.LogError("Clip does not exist: " + clipName);
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Animations
             this.Sprites = Resources.LoadAll<Sprite>(this.SpriteSheetPath).ToList();
             this.renderer = this.GetComponent<SpriteRenderer>();
 
-            this.AnimationHash = new Dictionary<string, AnimatorClip>();
+            this.AnimationHash = new Dictionary<string, AnimatableClip>();
 
             foreach (var animation in this.Animations)
             {
@@ -139,7 +139,7 @@ namespace Assets.Scripts.Animations
         /// Plays the target clip
         /// </summary>
         /// <param name="targetClip">Target clip to be played</param>
-        private void PlayClip(AnimatorClip targetClip)
+        private void PlayClip(AnimatableClip targetClip)
         {
             this.currentClip = targetClip;
             this.currentIndex = 0;

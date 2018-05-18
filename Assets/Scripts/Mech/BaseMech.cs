@@ -94,11 +94,11 @@ namespace Assets.Scripts.Mech
 
             if (xMovement != 0)
             {
-                this.Velocity += new Vector2(xMovement * this.EffectiveStats.GetMobilityValue(Lerpable.MovementAcceleration), 0);
+                this.Velocity = new Vector2(xMovement * this.EffectiveStats.GetMobilityValue(Lerpable.TopSpeed), this.Velocity.y);
             }
             else
             {
-                this.Velocity = new Vector2(Utils.Lerp(this.Velocity.x, 0, Config.SpeedDecayFactor), this.Velocity.y);
+                this.Velocity = Vector2.Lerp(this.Velocity, new Vector2(0, this.Velocity.y), Config.SpeedDecayFactor);
             }
 
             if (isJumping)

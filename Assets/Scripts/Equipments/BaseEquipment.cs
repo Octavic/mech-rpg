@@ -53,5 +53,26 @@ namespace Assets.Scripts.Equipments
         /// A list of Equipment properties
         /// </summary>
         public List<BaseEquipmentProperty> Properties { get; private set; }
+
+        /// <summary>
+        /// Called when the button to fire is pressed and then released
+        /// </summary>
+        public virtual void OnQuickUse()
+        {
+        }
+
+        /// <summary>
+        /// Called when the button is held down 
+        /// </summary>
+        public virtual void OnLongPressStart()
+        {
+        }
+
+        /// <summary>
+        /// Called when the held button is released
+        /// </summary>
+        public virtual void OnButtonRelease()
+        {
+        }
     }
 }
