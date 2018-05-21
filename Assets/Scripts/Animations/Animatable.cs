@@ -53,8 +53,15 @@ namespace Assets.Scripts.Animations
         /// Switches to the target clip
         /// </summary>
         /// <param name="clipName">The target clip</param>
-        public void PlayClip(string clipName)
+        /// <param name="shouldRestart">If the clipname is the same, should the clip start</param>
+        public void PlayClip(string clipName, bool shouldRestart = false)
         {
+            // If the same clip is playing and flag is set, do nothing
+            if (this.currentClip != null && this.currentClip.Name == clipName && !shouldRestart)
+            {
+                return;
+            }
+
             AnimatableClip clip;
             if (!this.AnimationHash.TryGetValue(clipName, out clip))
             {
@@ -112,15 +119,6 @@ namespace Assets.Scripts.Animations
 
             this.currentIndex++;
 
-            if (this.currentIndex >= this.Sprites.Count)
-            {
-                Debug.LogError("Sprite index out of range: " + this.currentIndex);
-                return;
-            }
-
-            this.renderer.sprite = this.Sprites[this.currentIndex];
-            this.timeTillNextFrame = this.currentClip.Delay;
-
             // Reached the end of clip
             if (this.currentIndex >= this.currentClip.ClipCount)
             {
@@ -131,8 +129,19 @@ namespace Assets.Scripts.Animations
                 else
                 {
                     this.currentClip = null;
+                    return;
                 }
             }
+
+            var targetIndex = this.currentClip.SpriteIndexes[this.currentIndex];
+            if (targetIndex >= this.Sprites.Count)
+            {
+                Debug.LogError("Sprite index out of range: " + this.currentIndex);
+                return;
+            }
+
+            this.renderer.sprite = this.Sprites[targetIndex];
+            this.timeTillNextFrame = this.currentClip.Delay;
         }
 
         /// <summary>
@@ -144,7 +153,7 @@ namespace Assets.Scripts.Animations
             this.currentClip = targetClip;
             this.currentIndex = 0;
             this.timeTillNextFrame = targetClip.Delay;
-            this.renderer.sprite = this.Sprites[0];
+            this.renderer.sprite = this.Sprites[targetClip.StartingIndex];
         }
     }
 }

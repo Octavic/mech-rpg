@@ -12,6 +12,19 @@ namespace Assets.Scripts.Mech
     using System.Text;
     using UnityEngine;
     using Utils;
+    using Animations;
+
+    /// <summary>
+    /// A collection of mech body parts
+    /// </summary>
+    [Serializable]
+    public class MechBodyParts
+    {
+        public Animatable Cab;
+        public Animatable Legs;
+        public Animatable LeftArm;
+        public Animatable RightArm;
+    }
 
     /// <summary>
     /// The base mech object
@@ -29,6 +42,11 @@ namespace Assets.Scripts.Mech
         public string MechaName;
 
         /// <summary>
+        /// Mech body parts
+        /// </summary>
+        public MechBodyParts Body;
+
+        /// <summary>
         /// The base stats of a mech
         /// </summary>
         public MechStats BaseStats;
@@ -43,11 +61,6 @@ namespace Assets.Scripts.Mech
         /// </summary>
         [HideInInspector]
         public MechStats EffectiveStats;
-
-        /// <summary>
-        /// The sprite renderer
-        /// </summary>
-        public SpriteRenderer Renderer;
 
         /// <summary>
         /// The mech's rigidbody
@@ -94,11 +107,24 @@ namespace Assets.Scripts.Mech
 
             if (xMovement != 0)
             {
+
+                if (!this.IsAirborne)
+                {
+                    this.Body.Cab.PlayClip("walk");
+                    this.Body.LeftArm.PlayClip("walk");
+                    this.Body.RightArm.PlayClip("walk");
+                    this.Body.Legs.PlayClip("walk");
+                }
+
                 this.Velocity = new Vector2(xMovement * this.EffectiveStats.GetMobilityValue(Lerpable.TopSpeed), this.Velocity.y);
             }
             else
             {
                 this.Velocity = Vector2.Lerp(this.Velocity, new Vector2(0, this.Velocity.y), Config.SpeedDecayFactor);
+                this.Body.Cab.PlayClip("still");
+                this.Body.LeftArm.PlayClip("still");
+                this.Body.RightArm.PlayClip("still");
+                this.Body.Legs.PlayClip("still");
             }
 
             if (isJumping)
@@ -116,12 +142,7 @@ namespace Assets.Scripts.Mech
         /// </summary>
         protected virtual void Start()
         {
-            this.Renderer = this.GetComponent<SpriteRenderer>();
             this.MechRigidbody = this.GetComponent<Rigidbody2D>();
-
-            var sprites = Resources.LoadAll<Sprite>(this.MechaName);
-            this.Renderer.sprite = sprites[0];
-
             this.EffectiveStats = this.BaseStats;
 
             this.IsAirborne = true;
