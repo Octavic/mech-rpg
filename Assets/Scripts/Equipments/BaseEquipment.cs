@@ -12,12 +12,23 @@ namespace Assets.Scripts.Equipments
     using System.Text;
     using UnityEngine;
     using EquipmentProperty;
+    using Mech;
 
     /// <summary>
     /// Defines the base of a mech Equipment
     /// </summary>
     public abstract class BaseEquipment : MonoBehaviour
     {
+        /// <summary>
+        /// THe mech that this equipment is equipped on
+        /// </summary>
+        public BaseMech Mech;
+
+        /// <summary>
+        /// The arm that this equipment is equipped on
+        /// </summary>
+        public MechArm Arm;
+
         /// <summary>
         /// Id of the equipment
         /// </summary>
@@ -53,6 +64,20 @@ namespace Assets.Scripts.Equipments
         /// A list of Equipment properties
         /// </summary>
         public List<BaseEquipmentProperty> Properties { get; private set; }
+
+        /// <summary>
+        /// Used for initialization
+        /// </summary>
+        protected virtual void Start()
+        {
+        }
+
+        /// <summary>
+        /// Called once per frame
+        /// </summary>
+        protected virtual void Update()
+        {
+        }
 
         /// <summary>
         /// Called when the button to fire is pressed and then released

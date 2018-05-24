@@ -40,7 +40,7 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// The sprite renderer component
         /// </summary>
-        private new SpriteRenderer renderer;
+        protected new SpriteRenderer renderer;
 
         /// <summary>
         /// The clip currently going on
@@ -66,6 +66,7 @@ namespace Assets.Scripts.Animations
             if (!this.AnimationHash.TryGetValue(clipName, out clip))
             {
                 Debug.LogError("Clip does not exist: " + clipName);
+                return;
             }
 
             this.PlayClip(clip);
@@ -122,15 +123,17 @@ namespace Assets.Scripts.Animations
             // Reached the end of clip
             if (this.currentIndex >= this.currentClip.ClipCount)
             {
-                if (this.currentClip.ShouldLoop)
+                var nextClip = this.currentClip.TransitTo;
+                if (!String.IsNullOrEmpty(nextClip))
                 {
-                    this.PlayClip(this.currentClip);
+                    this.PlayClip(nextClip, true);
                 }
                 else
                 {
                     this.currentClip = null;
-                    return;
                 }
+
+                return;
             }
 
             var targetIndex = this.currentClip.SpriteIndexes[this.currentIndex];

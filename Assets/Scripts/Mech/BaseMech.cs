@@ -13,6 +13,7 @@ namespace Assets.Scripts.Mech
     using UnityEngine;
     using Utils;
     using Animations;
+    using Equipments;
 
     /// <summary>
     /// A collection of mech body parts
@@ -22,8 +23,8 @@ namespace Assets.Scripts.Mech
     {
         public Animatable Cab;
         public Animatable Legs;
-        public Animatable LeftArm;
-        public Animatable RightArm;
+        public MechArm LeftArm;
+        public MechArm RightArm;
     }
 
     /// <summary>
@@ -31,6 +32,8 @@ namespace Assets.Scripts.Mech
     /// </summary>
     public abstract class BaseMech : MonoBehaviour
     {
+        public BaseEquipment TEMP_Weapon;
+
         /// <summary>
         /// Id of the mech
         /// </summary>
@@ -75,7 +78,27 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// If the unit is facing left or right
         /// </summary>
-        public bool IsFacingRight { get; private set; }
+        public bool IsFacingRight
+        {
+            get
+            {
+                return this._isFacingRight;
+            }
+            set
+            {
+                if (value != this._isFacingRight)
+                {
+                    this.transform.localScale = new Vector3(value ? 1 : -1, 1, 1);
+                    var equipped = this.Body.LeftArm.Equipped;
+                    this.Body.LeftArm.Equipped = this.Body.RightArm.Equipped;
+                    this.Body.RightArm.Equipped = equipped;
+                }
+
+                this._isFacingRight = value;
+            }
+        }
+
+        private bool _isFacingRight;
 
         /// <summary>
         /// Keeps track of jump status
@@ -93,38 +116,36 @@ namespace Assets.Scripts.Mech
         /// </summary>
         public void Move(float xMovement, bool isJumping)
         {
-            //  Flip the sprite based on x movement
-            if (xMovement < 0)
-            {
-                this.IsFacingRight = false;
-                this.transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else if (xMovement > 0)
-            {
-                this.IsFacingRight = true;
-                this.transform.localScale = new Vector3(1, 1, 1);
-            }
-
+            // Apply movement vector and flip mech if moving other direction
             if (xMovement != 0)
             {
-
-                if (!this.IsAirborne)
-                {
-                    this.Body.Cab.PlayClip("walk");
-                    this.Body.LeftArm.PlayClip("walk");
-                    this.Body.RightArm.PlayClip("walk");
-                    this.Body.Legs.PlayClip("walk");
-                }
-
+                this.IsFacingRight = xMovement > 0;
                 this.Velocity = new Vector2(xMovement * this.EffectiveStats.GetMobilityValue(Lerpable.TopSpeed), this.Velocity.y);
             }
             else
             {
                 this.Velocity = Vector2.Lerp(this.Velocity, new Vector2(0, this.Velocity.y), Config.SpeedDecayFactor);
+            }
+
+            // Apply animations
+            if (this.IsAirborne)
+            {
                 this.Body.Cab.PlayClip("still");
-                this.Body.LeftArm.PlayClip("still");
-                this.Body.RightArm.PlayClip("still");
-                this.Body.Legs.PlayClip("still");
+
+                if (isJumping)
+                {
+                    this.Body.Legs.PlayClip("jump");
+                }
+                else
+                {
+                    this.Body.Legs.PlayClip("fall");
+                }
+            }
+            else
+            {
+                var targetClip = xMovement != 0 ? "walk" : "still";
+                this.Body.Cab.PlayClip(targetClip);
+                this.Body.Legs.PlayClip(targetClip);
             }
 
             if (isJumping)
@@ -144,6 +165,8 @@ namespace Assets.Scripts.Mech
         {
             this.MechRigidbody = this.GetComponent<Rigidbody2D>();
             this.EffectiveStats = this.BaseStats;
+            this.IsFacingRight = true;
+            this.Body.RightArm.Equipped = this.TEMP_Weapon;
 
             this.IsAirborne = true;
         }

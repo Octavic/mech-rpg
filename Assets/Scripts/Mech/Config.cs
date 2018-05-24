@@ -10,6 +10,7 @@ namespace Assets.Scripts.Mech
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using UnityEngine;
 
     public class LerpableValue
     {
@@ -44,8 +45,8 @@ namespace Assets.Scripts.Mech
             Lerpables[Lerpable.MovementAcceleration] = new LerpableValue(0.1f, 0.5f);
             Lerpables[Lerpable.TopSpeed] = new LerpableValue(0.03f, 0.06f);
             Lerpables[Lerpable.MovementDecay] = new LerpableValue(2.0f, 3.0f);
-            Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.02f, 0.03f);
-            Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.04f, 0.05f);
+            Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.01f, 0.02f);
+            Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.03f, 0.04f);
         }
 
         /// <summary>
@@ -55,5 +56,7 @@ namespace Assets.Scripts.Mech
 
         public const float SpeedDecayFactor = 0.8f;
         public const float GravityFactor = 0.3f;
+
+        public static Vector2 WeaponHandOffset = new Vector2(0.02f, -0.13f);
     }
 }

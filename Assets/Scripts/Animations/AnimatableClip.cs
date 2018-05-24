@@ -40,9 +40,9 @@ namespace Assets.Scripts.Animations
         public float Delay;
 
         /// <summary>
-        /// If the animation should loop
+        /// If the animation should transition to another state automatically when it's finished
         /// </summary>
-        public bool ShouldLoop;
+        public string TransitTo;
 
         /// <summary>
         /// Initializes the clip
