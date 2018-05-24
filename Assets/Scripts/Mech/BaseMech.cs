@@ -92,19 +92,18 @@ namespace Assets.Scripts.Mech
                     var equipped = this.Body.LeftArm.Equipped;
                     this.Body.LeftArm.Equipped = this.Body.RightArm.Equipped;
                     this.Body.RightArm.Equipped = equipped;
-                }
 
-                this._isFacingRight = value;
+                    this._isFacingRight = value;
+
+                }
             }
         }
-
         private bool _isFacingRight;
 
         /// <summary>
         /// Keeps track of jump status
         /// </summary>
-        protected bool CanGroundJump { get; private set; }
-        protected int AirJumpsLeft { get; private set; }
+        protected float BoostSecondsLeft;
 
         /// <summary>
         /// The velocity

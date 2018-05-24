@@ -27,7 +27,7 @@ namespace Assets.Scripts.Equipments
         /// <summary>
         /// The arm that this equipment is equipped on
         /// </summary>
-        public MechArm Arm;
+        public MechArm EquippedOnArm;
 
         /// <summary>
         /// Id of the equipment

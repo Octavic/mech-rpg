@@ -38,18 +38,15 @@ namespace Assets.Scripts.Mech
                 // Unequip what's currently in hand
                 if (this._equipped != null)
                 {
-                    this._equipped.Arm = null;
+                    this._equipped.EquippedOnArm = null;
                 }
 
                 // Set new equip's render layer
                 if (value != null)
                 {
-                    if (this.IsOnTop)
-                    {
-                        value.GetComponent<SpriteRenderer>().sortingOrder = this.IsOnTop ? 1 : -1;
-                    }
+                    value.GetComponent<SpriteRenderer>().sortingOrder = this.IsOnTop ? 1 : -1;
 
-                    value.Arm = this;
+                    value.EquippedOnArm = this;
                     value.transform.parent = this.transform;
                     value.transform.localPosition = Config.WeaponHandOffset;
                 }

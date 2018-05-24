@@ -33,7 +33,7 @@ namespace Assets.Scripts.Equipments.Weapons
         public override void OnLongPressStart()
         {
             this.Animatable.PlayClip("fire");
-            this.Arm.PlayClip("fire");
+            this.EquippedOnArm.PlayClip("fire");
             base.OnLongPressStart();
         }
 
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Equipments.Weapons
         public override void OnButtonRelease()
         {
             this.Animatable.PlayClip("still");
-            this.Arm.PlayClip("still");
+            this.EquippedOnArm.PlayClip("still");
             base.OnButtonRelease();
         }
 
