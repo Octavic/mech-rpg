@@ -23,8 +23,8 @@ namespace Assets.Scripts.Mech
     {
         public Animatable Cab;
         public Animatable Legs;
-        public MechArm LeftArm;
-        public MechArm RightArm;
+        public MechArm BottomArm;
+        public MechArm TopArm;
     }
 
     /// <summary>
@@ -75,6 +75,22 @@ namespace Assets.Scripts.Mech
         /// </summary>
         public bool IsAirborne { get; set; }
 
+        protected MechArm RightArm
+        {
+            get
+            {
+                return this._isFacingRight ? this.Body.TopArm : this.Body.BottomArm;
+            }
+        }
+
+        protected MechArm leftArm
+        {
+            get
+            {
+                return this._isFacingRight ? this.Body.BottomArm : this.Body.TopArm;
+            }
+        }
+
         /// <summary>
         /// If the unit is facing left or right
         /// </summary>
@@ -89,12 +105,13 @@ namespace Assets.Scripts.Mech
                 if (value != this._isFacingRight)
                 {
                     this.transform.localScale = new Vector3(value ? 1 : -1, 1, 1);
-                    var equipped = this.Body.LeftArm.Equipped;
-                    this.Body.LeftArm.Equipped = this.Body.RightArm.Equipped;
-                    this.Body.RightArm.Equipped = equipped;
+                    var leftEquipped = this.leftArm.Equipped;
+                    var rightEquipped = this.RightArm.Equipped;
 
                     this._isFacingRight = value;
 
+                    this.RightArm.Equipped = rightEquipped;
+                    this.leftArm.Equipped = leftEquipped;
                 }
             }
         }
@@ -165,7 +182,7 @@ namespace Assets.Scripts.Mech
             this.MechRigidbody = this.GetComponent<Rigidbody2D>();
             this.EffectiveStats = this.BaseStats;
             this.IsFacingRight = true;
-            this.Body.RightArm.Equipped = this.TEMP_Weapon;
+            this.Body.TopArm.Equipped = this.TEMP_Weapon;
 
             this.IsAirborne = true;
         }
@@ -185,6 +202,21 @@ namespace Assets.Scripts.Mech
             }
 
             this.MechRigidbody.MovePosition(this.transform.position + (Vector3)this.Velocity);
+        }
+
+        /// <summary>
+        /// Called once per frame
+        /// </summary>
+        protected void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
+            {
+                this.RightArm.Equipped.OnLongPressStart();
+            }
+            else if (Input.GetKeyUp(KeyCode.J) && this.RightArm.Equipped != null)
+            {
+                this.RightArm.Equipped.OnButtonRelease();
+            }
         }
     }
 }

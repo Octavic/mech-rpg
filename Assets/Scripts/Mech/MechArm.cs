@@ -35,12 +35,6 @@ namespace Assets.Scripts.Mech
             }
             set
             {
-                // Unequip what's currently in hand
-                if (this._equipped != null)
-                {
-                    this._equipped.EquippedOnArm = null;
-                }
-
                 // Set new equip's render layer
                 if (value != null)
                 {

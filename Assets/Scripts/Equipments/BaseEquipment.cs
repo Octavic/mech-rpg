@@ -91,6 +91,7 @@ namespace Assets.Scripts.Equipments
         /// </summary>
         public virtual void OnLongPressStart()
         {
+            
         }
 
         /// <summary>
