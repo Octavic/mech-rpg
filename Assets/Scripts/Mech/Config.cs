@@ -30,9 +30,7 @@ namespace Assets.Scripts.Mech
 
     public enum Lerpable
     {
-        MovementAcceleration,
         TopSpeed,
-        MovementDecay,
         InitialJumpSpeed,
         FallSpeed
     }
@@ -42,9 +40,7 @@ namespace Assets.Scripts.Mech
         static Config()
         {
             Lerpables = new Dictionary<Lerpable, LerpableValue>();
-            Lerpables[Lerpable.MovementAcceleration] = new LerpableValue(0.1f, 0.5f);
             Lerpables[Lerpable.TopSpeed] = new LerpableValue(0.03f, 0.06f);
-            Lerpables[Lerpable.MovementDecay] = new LerpableValue(2.0f, 3.0f);
             Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.01f, 0.02f);
             Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.03f, 0.04f);
         }

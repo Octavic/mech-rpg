@@ -49,6 +49,20 @@ namespace Assets.Scripts.Mech
             }
         }
 
+        /// <summary>
+        /// Unequips the current equipped item
+        /// </summary>
+        /// <returns>The unequipped item</returns>
+        public BaseEquipment Unequip()
+        {
+            if (this.Equipped != null)
+            {
+                this.Equipped.EquippedOnArm = null;
+            }
+
+            return this.Equipped;
+        }
+
         private BaseEquipment _equipped;
     }
 }

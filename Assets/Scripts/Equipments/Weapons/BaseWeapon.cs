@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="BaseMech.cs">
+//  <copyright file="BaseWeapon.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -11,6 +11,7 @@ namespace Assets.Scripts.Equipments.Weapons
     using System.Linq;
     using System.Text;
     using Animations;
+    using Mech;
 
     /// <summary>
     /// Defines a base weapon
@@ -45,6 +46,19 @@ namespace Assets.Scripts.Equipments.Weapons
             this.Animatable.PlayClip("still");
             this.EquippedOnArm.PlayClip("still");
             base.OnButtonRelease();
+        }
+
+        /// <summary>
+        /// Called when the weapon is equipped
+        /// </summary>
+        public virtual void OnEquip(MechArm newArm)
+        {
+            this.EquippedOnArm = newArm;
+        }
+
+        public virtual void OnUnequip()
+        {
+            this.EquippedOnArm = null;
         }
 
         /// <summary>

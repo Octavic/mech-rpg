@@ -22,7 +22,7 @@ namespace Assets.Scripts.Mech
         ///  All of the following values are capped from 0 - 100
         /// </summary>
         public float Mobility;
-        public float HP;
+        public float Defencse;
         public float FirePower;
         public float WeightCap;
 
@@ -31,7 +31,12 @@ namespace Assets.Scripts.Mech
         /// </summary>
         public int TotalJumps;
 
-        public float GetMobilityValue(Lerpable l)
+        /// <summary>
+        /// Gets a mobility related value
+        /// </summary>
+        /// <param name="l">lerpable data</param>
+        /// <returns>The resulting value, adjusted for mobility</returns>
+        public float GetLerpValue(Lerpable l)
         {
             return Config.Lerpables[l].Apply(this.Mobility / 100);
         }

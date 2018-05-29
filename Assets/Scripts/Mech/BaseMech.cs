@@ -62,8 +62,8 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// The final  states of a mech
         /// </summary>
-        [HideInInspector]
-        public MechStats EffectiveStats;
+        public MechStats EffectiveStats { get; private set; }
+        public MechDerivedStats DerivedStats { get; private set; }
 
         /// <summary>
         /// The mech's rigidbody
@@ -105,8 +105,8 @@ namespace Assets.Scripts.Mech
                 if (value != this._isFacingRight)
                 {
                     this.transform.localScale = new Vector3(value ? 1 : -1, 1, 1);
-                    var leftEquipped = this.leftArm.Equipped;
-                    var rightEquipped = this.RightArm.Equipped;
+                    var leftEquipped = this.leftArm.Unequip();
+                    var rightEquipped = this.RightArm.Unequip();
 
                     this._isFacingRight = value;
 
@@ -136,7 +136,7 @@ namespace Assets.Scripts.Mech
             if (xMovement != 0)
             {
                 this.IsFacingRight = xMovement > 0;
-                this.Velocity = new Vector2(xMovement * this.EffectiveStats.GetMobilityValue(Lerpable.TopSpeed), this.Velocity.y);
+                this.Velocity = new Vector2(xMovement * this.DerivedStats.TopSpeed, this.Velocity.y);
             }
             else
             {
@@ -166,11 +166,11 @@ namespace Assets.Scripts.Mech
 
             if (isJumping)
             {
-                this.Velocity += new Vector2(0, this.EffectiveStats.GetMobilityValue(Lerpable.InitialJumpSpeed));
+                this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
             }
             else if (this.IsAirborne)
             {
-                this.Velocity = new Vector2(this.Velocity.x, Utils.Lerp(this.Velocity.y, -this.EffectiveStats.GetMobilityValue(Lerpable.FallSpeed), Config.GravityFactor));
+                this.Velocity = new Vector2(this.Velocity.x, Utils.Lerp(this.Velocity.y, -this.DerivedStats.FallSpeed, Config.GravityFactor));
             }
         }
 
@@ -181,6 +181,7 @@ namespace Assets.Scripts.Mech
         {
             this.MechRigidbody = this.GetComponent<Rigidbody2D>();
             this.EffectiveStats = this.BaseStats;
+            this.DerivedStats = new MechDerivedStats(this.EffectiveStats);
             this.IsFacingRight = true;
             this.Body.TopArm.Equipped = this.TEMP_Weapon;
 
@@ -193,7 +194,7 @@ namespace Assets.Scripts.Mech
         protected virtual void FixedUpdate()
         {
             var oldVelocity = this.Velocity;
-            var maxSpeed = this.EffectiveStats.GetMobilityValue(Lerpable.TopSpeed);
+            var maxSpeed = this.DerivedStats.TopSpeed;
 
             //  Limit max horizontal speed before applying  
             if (Math.Abs(oldVelocity.x) > maxSpeed)
