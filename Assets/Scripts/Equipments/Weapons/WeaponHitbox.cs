@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ConstantHitboxWeapon.cs">
+//  <copyright file="BaseEquipment.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -13,9 +13,16 @@ namespace Assets.Scripts.Equipments.Weapons
     using UnityEngine;
 
     /// <summary>
-    /// Defines a weapon that when fired, activates a constant hitbox (machine gun, laser, etc)
+    /// Defines a weapon's hitbox
     /// </summary>
-    public class ConstantHitboxWeapon : BaseWeapon
+    public class WeaponHitbox : MonoBehaviour
     {
+        /// <summary>
+        /// The damage stats
+        /// </summary>
+        public float Damage;
+        public float HitStunSeconds;
+        public float Impact;
+        public Vector2 KnockBack;
     }
 }

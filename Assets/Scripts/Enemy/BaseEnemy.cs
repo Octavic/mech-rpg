@@ -27,6 +27,9 @@ namespace Assets.Scripts.Enemy
         /// </summary>
         public EnemyStats EffectiveStats { get; private set; }
 
+        /// <summary>
+        /// The current HP
+        /// </summary>
         public float CurrentHP
         {
             get
@@ -39,5 +42,13 @@ namespace Assets.Scripts.Enemy
             }
         }
         private float _currentHP;
+
+        /// <summary>
+        /// Used for initialization
+        /// </summary>
+        public virtual void Start()
+        {
+            this.EffectiveStats = this.BaseStats;
+        }
     }
 }
