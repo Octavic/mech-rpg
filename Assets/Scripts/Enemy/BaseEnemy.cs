@@ -11,12 +11,18 @@ namespace Assets.Scripts.Enemy
     using System.Linq;
     using System.Text;
     using UnityEngine;
+    using Equipments.Weapons;
 
     /// <summary>
     /// The enemy base class
     /// </summary>
     public abstract class BaseEnemy : MonoBehaviour
     {
+        /// <summary>
+        /// The hp bar component
+        /// </summary>
+        public ScaleBar HPBar;
+
         /// <summary>
         /// The  base stats of an enemy
         /// </summary>
@@ -38,6 +44,15 @@ namespace Assets.Scripts.Enemy
             }
             set
             {
+                if (value <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    this.HPBar.SetLength(value / this.EffectiveStats.HP);
+                }
+
                 this._currentHP = value;
             }
         }
@@ -46,9 +61,36 @@ namespace Assets.Scripts.Enemy
         /// <summary>
         /// Used for initialization
         /// </summary>
-        public virtual void Start()
+        protected virtual void Start()
         {
             this.EffectiveStats = this.BaseStats;
+            this.CurrentHP = this.EffectiveStats.HP;
+        }
+
+        /// <summary>
+        /// Called when trigger collision happens
+        /// </summary>
+        /// <param name="collider">The collider</param>
+        protected virtual void OnTriggerEnter2D(Collider2D collider)
+        {
+            var hitBox = collider.GetComponent<WeaponHitbox>();
+            if (hitBox != null && !hitBox.IsConstant)
+            {
+                this.CurrentHP -= hitBox.Damage;
+            }
+        }
+
+        /// <summary>
+        /// Called when trigger stays collided
+        /// </summary>
+        /// <param name="collider">The collider</param>
+        protected virtual void OnTriggerStay2D(Collider2D collider)
+        {
+            var hitBox = collider.GetComponent<WeaponHitbox>();
+            if (hitBox != null && hitBox.IsConstant)
+            {
+                this.CurrentHP -= hitBox.Damage * Time.deltaTime;
+            }
         }
     }
 }

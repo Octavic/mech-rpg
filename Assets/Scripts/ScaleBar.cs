@@ -1,10 +1,10 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="BaseEquipment.cs">
+//  <copyright file="ScaleBar.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Equipments.Weapons
+namespace Assets.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -13,21 +13,23 @@ namespace Assets.Scripts.Equipments.Weapons
     using UnityEngine;
 
     /// <summary>
-    /// Defines a weapon's hitbox
+    /// Defines a scalable bar (HP bar, energy bar, etc)
     /// </summary>
-    public class WeaponHitbox : MonoBehaviour
+    public class ScaleBar : MonoBehaviour
     {
         /// <summary>
-        /// If the hitbox is constant
+        /// The actual bar object
         /// </summary>
-        public bool IsConstant;
+        public GameObject BarObject;
 
         /// <summary>
-        /// The damage stats
+        /// Sets the bar's length
         /// </summary>
-        public float Damage;
-        public float HitStunSeconds;
-        public float Impact;
-        public Vector2 KnockBack;
+        /// <param name="val">a value between 0-1 </param>
+        public void SetLength(float val)
+        {
+            BarObject.transform.localPosition = new Vector2(val / 2 - 0.5f, 0);
+            BarObject.transform.localScale = new Vector3(val, 1, 1);
+        }
     }
 }

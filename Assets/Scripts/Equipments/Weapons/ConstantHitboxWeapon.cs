@@ -17,5 +17,27 @@ namespace Assets.Scripts.Equipments.Weapons
     /// </summary>
     public class ConstantHitboxWeapon : BaseWeapon
     {
+        /// <summary>
+        /// The weapon's hitbox
+        /// </summary>
+        public WeaponHitbox Hitbox;
+
+        /// <summary>
+        /// Called when the weapon is used
+        /// </summary>
+        public override void OnLongPressStart()
+        {
+            this.Hitbox.gameObject.SetActive(true);
+            base.OnLongPressStart();
+        }
+
+        /// <summary>
+        /// Called when the weapon is used
+        /// </summary>
+        public override void OnButtonRelease()
+        {
+            this.Hitbox.gameObject.SetActive(false);
+            base.OnButtonRelease();
+        }
     }
 }
