@@ -21,7 +21,7 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// The animatable component
         /// </summary>
-        Animatable Animatable;    
+        Animatable Animatable;
 
         /// <summary>
         /// If using the weapon should prevent the mech from moving
@@ -29,10 +29,16 @@ namespace Assets.Scripts.Equipments.Weapons
         public bool ShouldGround;
 
         /// <summary>
+        /// If the weapon is being fired right now
+        /// </summary>
+        protected bool _isFiring;
+
+        /// <summary>
         /// Called when the bu
         /// </summary>
         public override void OnLongPressStart()
         {
+            this._isFiring = true;
             this.Animatable.PlayClip("fire");
             this.EquippedOnArm.PlayClip("fire");
             base.OnLongPressStart();
@@ -43,6 +49,7 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public override void OnButtonRelease()
         {
+            this._isFiring = false;
             this.Animatable.PlayClip("still");
             this.EquippedOnArm.PlayClip("still");
             base.OnButtonRelease();
@@ -69,6 +76,16 @@ namespace Assets.Scripts.Equipments.Weapons
             this.Animatable = this.GetComponent<Animatable>();
 
             base.Start();
+        }
+
+        protected override void Update()
+        {
+            if (this._isFiring)
+            {
+                MainCamera.CurrentInstance.Shake(0.05f);
+            }
+
+            base.Update();
         }
     }
 }

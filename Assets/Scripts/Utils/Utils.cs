@@ -16,13 +16,13 @@ namespace Assets.Scripts.Utils
         /// <summary>
         /// Gets the lerped value
         /// </summary>
-        /// <param name="min">The mininmal value</param>
-        /// <param name="max">The maximum value</param>
+        /// <param name="start">The mininmal value</param>
+        /// <param name="end">The maximum value</param>
         /// <param name="diff">A value between 0-1 defining where to stop</param>
         /// <returns>The lerped value</returns>
-        public static float Lerp(float min, float max, float diff)
+        public static float Lerp(float start, float end, float diff)
         {
-            return (max - min) * diff + min;
+            return (end - start) * diff + start;
         }
     }
 }
