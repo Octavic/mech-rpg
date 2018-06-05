@@ -78,6 +78,9 @@ namespace Assets.Scripts.Equipments.Weapons
             base.Start();
         }
 
+        /// <summary>
+        /// Called one per frame
+        /// </summary>
         protected override void Update()
         {
             if (this._isFiring)

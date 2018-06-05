@@ -1,10 +1,10 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="MapEntity.cs">
+//  <copyright file="HitScanWeapon.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Map
+namespace Assets.Scripts.Equipments.Weapons
 {
     using System;
     using System.Collections.Generic;
@@ -13,22 +13,10 @@ namespace Assets.Scripts.Map
     using UnityEngine;
 
     /// <summary>
-    /// Defines a map entity
+    /// Defines a hitscan weapon
     /// </summary>
-    public class MapEntity : MonoBehaviour
+    public class HitScanWeapon : BaseWeapon
     {
-        /// <summary>
-        /// Used for initialization
-        /// </summary>
-        protected virtual void Start()
-        {
-        }
-
-        /// <summary>
-        /// Called once  per frame
-        /// </summary>
-        protected virtual void Update()
-        {
-        }
+        public Vector2 MuzzleLocation;
     }
 }

@@ -18,11 +18,6 @@ namespace Assets.Scripts.Equipments.Weapons
     public class WeaponHitbox : MonoBehaviour
     {
         /// <summary>
-        /// If the hitbox is constant
-        /// </summary>
-        public bool IsConstant;
-
-        /// <summary>
         /// The damage stats
         /// </summary>
         public float Damage;

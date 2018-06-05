@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="MapEntity.cs">
+//  <copyright file="HittableMapEntity.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -10,25 +10,30 @@ namespace Assets.Scripts.Map
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Equipments.Weapons;
     using UnityEngine;
 
-    /// <summary>
-    /// Defines a map entity
-    /// </summary>
-    public class MapEntity : MonoBehaviour
+    public class HittableMapEntity : MapEntity, IHittable
     {
         /// <summary>
-        /// Used for initialization
+        /// Called when the map  entity is hit
         /// </summary>
-        protected virtual void Start()
+        /// <param name="hit">The weapon hitbox</param>
+        public virtual void OnHit(WeaponHitbox hit)
         {
         }
 
         /// <summary>
-        /// Called once  per frame
+        /// Called when the trigger enters
         /// </summary>
-        protected virtual void Update()
+        /// <param name="collider">The collision</param>
+        protected virtual void OnTriggerEnter2D(Collider2D collider)
         {
+            var hitbox = collider.GetComponent<WeaponHitbox>();
+            if (hitbox != null)
+            {
+                this.OnHit(hitbox);
+            }
         }
     }
 }

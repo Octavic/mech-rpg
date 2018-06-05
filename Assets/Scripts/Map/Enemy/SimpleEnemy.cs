@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.Scripts.Enemy
+namespace Assets.Scripts.Map.Enemy
 {
     using System;
     using System.Collections.Generic;

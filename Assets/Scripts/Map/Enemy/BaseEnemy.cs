@@ -4,7 +4,7 @@
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Enemy
+namespace Assets.Scripts.Map.Enemy
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Enemy
     /// <summary>
     /// The enemy base class
     /// </summary>
-    public abstract class BaseEnemy : MonoBehaviour
+    public abstract class BaseEnemy : KnockBackableMapEntity
     {
         /// <summary>
         /// The hp bar component
@@ -61,36 +61,17 @@ namespace Assets.Scripts.Enemy
         /// <summary>
         /// Used for initialization
         /// </summary>
-        protected virtual void Start()
+        protected override void Start()
         {
             this.EffectiveStats = this.BaseStats;
             this.CurrentHP = this.EffectiveStats.HP;
+            base.Start();
         }
 
-        /// <summary>
-        /// Called when trigger collision happens
-        /// </summary>
-        /// <param name="collider">The collider</param>
-        protected virtual void OnTriggerEnter2D(Collider2D collider)
+        public override void OnHit(WeaponHitbox hit)
         {
-            var hitBox = collider.GetComponent<WeaponHitbox>();
-            if (hitBox != null && !hitBox.IsConstant)
-            {
-                this.CurrentHP -= hitBox.Damage;
-            }
-        }
-
-        /// <summary>
-        /// Called when trigger stays collided
-        /// </summary>
-        /// <param name="collider">The collider</param>
-        protected virtual void OnTriggerStay2D(Collider2D collider)
-        {
-            var hitBox = collider.GetComponent<WeaponHitbox>();
-            if (hitBox != null && hitBox.IsConstant)
-            {
-                this.CurrentHP -= hitBox.Damage * Time.deltaTime;
-            }
+            this.CurrentHP -= hit.Damage;
+            base.OnHit(hit);
         }
     }
 }

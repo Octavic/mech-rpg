@@ -15,12 +15,12 @@ namespace Assets.Scripts.Map
     /// <summary>
     /// Defines something that can be knocked back
     /// </summary>
-    public interface IKnockBackable
+    public interface IKnockBackable : IHittable
     {
         /// <summary>
         /// Gets or sets a value that indicates if the entity is still in unresponsive hitstun
         /// </summary>
-        bool IsInHitStun { get; set; }
+        bool IsInHitStun { get; }
 
         /// <summary>
         /// Applies the hit
@@ -28,6 +28,6 @@ namespace Assets.Scripts.Map
         /// <param name="direction">The direction of the knock back</param>
         /// <param name="knockBackForce">Force  of the knock back</param>
         /// <param name="hitStun">Duration of hitstun</param>
-        void ApplyHit(Vector2 direction, float knockBackForce, float hitStun);
+        void ApplyKnockback(Vector2 direction, float knockBackForce, float hitStun);
     }
 }

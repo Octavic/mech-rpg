@@ -18,6 +18,7 @@ namespace Assets.Scripts.Equipments
     public class EquipmentStats
     {
         public float Damage;
+        public float Accuracy;
         public float AttackSpeed;
         public float ReloadSpeed;
         public float CritChance;
