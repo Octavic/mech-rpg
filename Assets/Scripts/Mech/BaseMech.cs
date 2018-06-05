@@ -212,11 +212,11 @@ namespace Assets.Scripts.Mech
         {
             if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
             {
-                this.RightArm.Equipped.OnLongPressStart();
+                this.RightArm.Equipped.OnPressStart();
             }
             else if (Input.GetKeyUp(KeyCode.J) && this.RightArm.Equipped != null)
             {
-                this.RightArm.Equipped.OnButtonRelease();
+                this.RightArm.Equipped.OnLongRelease();
             }
         }
     }

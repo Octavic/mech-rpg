@@ -45,6 +45,11 @@ namespace Assets.Scripts.Equipments
         public EquipmentRarity Rarity;
 
         /// <summary>
+        /// The base equipment stats
+        /// </summary>
+        public EquipmentStats BaseStats;
+
+        /// <summary>
         /// If the weapon can be mounted on shoulder
         /// </summary>
         public virtual bool IsArmWeapon { get; protected set; }
@@ -82,22 +87,22 @@ namespace Assets.Scripts.Equipments
         /// <summary>
         /// Called when the button to fire is pressed and then released
         /// </summary>
-        public virtual void OnQuickUse()
+        public virtual void OnShortRelease()
         {
         }
 
         /// <summary>
         /// Called when the button is held down 
         /// </summary>
-        public virtual void OnLongPressStart()
+        public virtual void OnPressStart()
         {
-            
+
         }
 
         /// <summary>
         /// Called when the held button is released
         /// </summary>
-        public virtual void OnButtonRelease()
+        public virtual void OnLongRelease()
         {
         }
     }

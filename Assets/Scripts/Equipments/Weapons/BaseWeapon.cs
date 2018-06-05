@@ -36,23 +36,23 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// Called when the bu
         /// </summary>
-        public override void OnLongPressStart()
+        public override void OnPressStart()
         {
             this._isFiring = true;
             this.Animatable.PlayClip("fire");
             this.EquippedOnArm.PlayClip("fire");
-            base.OnLongPressStart();
+            base.OnPressStart();
         }
 
         /// <summary>
         /// Called when the weapon is released
         /// </summary>
-        public override void OnButtonRelease()
+        public override void OnLongRelease()
         {
             this._isFiring = false;
             this.Animatable.PlayClip("still");
             this.EquippedOnArm.PlayClip("still");
-            base.OnButtonRelease();
+            base.OnLongRelease();
         }
 
         /// <summary>

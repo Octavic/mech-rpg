@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="BaseEquipment.cs">
+//  <copyright file="WeaponHitStat.cs">
 //    Copyright (c) Yifei Xu .  All rights reserved.
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
@@ -13,13 +13,17 @@ namespace Assets.Scripts.Equipments.Weapons
     using UnityEngine;
 
     /// <summary>
-    /// Defines a weapon's hitbox
+    /// Defines the stats of a weapon hit
     /// </summary>
-    public class WeaponHitbox : MonoBehaviour
+    [Serializable]
+    public class WeaponHitStat
     {
         /// <summary>
-        /// Stats
+        /// The damage stats
         /// </summary>
-        public WeaponHitStat HitStat;
+        public float Damage;
+        public float HitStunSeconds;
+        public float Impact;
+        public Vector2 KnockBack;
     }
 }

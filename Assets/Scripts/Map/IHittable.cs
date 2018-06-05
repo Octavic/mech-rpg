@@ -16,6 +16,6 @@ namespace Assets.Scripts.Map
         /// Called when the entity is hit
         /// </summary>
         /// <param name="hit">The weapon hit</param>
-        void OnHit(WeaponHitbox hit);
+        void OnHit(WeaponHitStat hit);
     }
 }

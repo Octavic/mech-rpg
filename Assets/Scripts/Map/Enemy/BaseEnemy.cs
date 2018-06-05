@@ -68,7 +68,7 @@ namespace Assets.Scripts.Map.Enemy
             base.Start();
         }
 
-        public override void OnHit(WeaponHitbox hit)
+        public override void OnHit(WeaponHitStat hit)
         {
             this.CurrentHP -= hit.Damage;
             base.OnHit(hit);

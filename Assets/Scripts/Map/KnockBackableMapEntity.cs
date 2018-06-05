@@ -37,7 +37,7 @@ namespace Assets.Scripts.Map
         /// Called when the entity is hit
         /// </summary>
         /// <param name="hit">The hit box</param>
-        public override void OnHit(WeaponHitbox hit)
+        public override void OnHit(WeaponHitStat hit)
         {
             this.ApplyKnockback(hit.KnockBack, hit.Impact, hit.HitStunSeconds);
             base.OnHit(hit);

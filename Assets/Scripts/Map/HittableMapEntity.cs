@@ -19,7 +19,7 @@ namespace Assets.Scripts.Map
         /// Called when the map  entity is hit
         /// </summary>
         /// <param name="hit">The weapon hitbox</param>
-        public virtual void OnHit(WeaponHitbox hit)
+        public virtual void OnHit(WeaponHitStat hit)
         {
         }
 
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Map
             var hitbox = collider.GetComponent<WeaponHitbox>();
             if (hitbox != null)
             {
-                this.OnHit(hitbox);
+                this.OnHit(hitbox.HitStat);
             }
         }
     }

@@ -25,19 +25,19 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// Called when the weapon is used
         /// </summary>
-        public override void OnLongPressStart()
+        public override void OnPressStart()
         {
             this.Hitbox.gameObject.SetActive(true);
-            base.OnLongPressStart();
+            base.OnPressStart();
         }
 
         /// <summary>
         /// Called when the weapon is used
         /// </summary>
-        public override void OnButtonRelease()
+        public override void OnLongRelease()
         {
             this.Hitbox.gameObject.SetActive(false);
-            base.OnButtonRelease();
+            base.OnLongRelease();
         }
     }
 }

@@ -33,6 +33,19 @@ namespace Assets.Scripts.Utils
             return r.Next(min, max);
         }
 
+        /// <summary>
+        /// Gets a random true/false value
+        /// </summary>
+        /// <returns></returns>
+        public static bool NextBool()
+        {
+            return r.Next(1) == 0;
+        }
+
+        /// <summary>
+        /// Gets a random number between 0 and 1
+        /// </summary>
+        /// <returns>Result</returns>
         public static float NextFloat()
         {
             return (float)(r.NextDouble());
