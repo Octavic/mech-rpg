@@ -4,7 +4,7 @@
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts
 {
     using System;
     using System.Collections.Generic;

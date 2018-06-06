@@ -15,7 +15,7 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// Defines a weapon that when fired, activates a constant hitbox (machine gun, laser, etc)
     /// </summary>
-    public class ConstantHitboxWeapon : BaseWeapon
+    public abstract class ConstantHitboxWeapon : BaseWeapon
     {
         /// <summary>
         /// The weapon's hitbox

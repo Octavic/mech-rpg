@@ -10,7 +10,6 @@ namespace Assets.Scripts.Mech
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Utils;
 
     /// <summary>
     /// Status for a mech

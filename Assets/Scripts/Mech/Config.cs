@@ -24,7 +24,7 @@ namespace Assets.Scripts.Mech
 
         public float Apply(float t)
         {
-            return Utils.Utils.Lerp(this.Min, this.Max, t);
+            return Utils.Lerp(this.Min, this.Max, t);
         }
     }
 

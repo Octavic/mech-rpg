@@ -11,7 +11,6 @@ namespace Assets.Scripts.Equipments.Weapons
     using System.Linq;
     using System.Text;
     using UnityEngine;
-    using Utils;
     using Map;
 
     /// <summary>
@@ -20,6 +19,14 @@ namespace Assets.Scripts.Equipments.Weapons
     public class HitScanWeapon : BaseWeapon
     {
         /// <summary>
+        /// The pellet count. When it's not a whole number, a random die is rolled to see if an extra bullet is shot
+        /// </summary>
+        public float PelletCount;
+
+        private bool _isFiring;
+        private float _weaponCooldown;
+
+        /// <summary>
         /// Stats about the weapon
         /// </summary>
         public GameObject MuzzleLocation;
@@ -27,6 +34,7 @@ namespace Assets.Scripts.Equipments.Weapons
 
         public override void OnPressStart()
         {
+            this._isFiring = true;
             this.Fire();
             base.OnPressStart();
         }

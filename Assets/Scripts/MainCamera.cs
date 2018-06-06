@@ -11,7 +11,6 @@ namespace Assets.Scripts
     using System.Linq;
     using System.Text;
     using UnityEngine;
-    using Utils;
 
     /// <summary>
     /// The main camera
@@ -73,7 +72,7 @@ namespace Assets.Scripts
         {
             if (this._magnitude > 0)
             {
-                this._magnitude = Utils.Utils.Lerp(this._magnitude, 0, this._deacyFactor);
+                this._magnitude = Utils.Lerp(this._magnitude, 0, this._deacyFactor);
                 if (this._magnitude <= MinMagnitude)
                 {
                     this._magnitude = 0;

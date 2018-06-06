@@ -5,7 +5,6 @@ namespace Assets.Scripts.Equipments
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Utils;
 
     public static class Config
     {
@@ -30,6 +29,13 @@ namespace Assets.Scripts.Equipments
         public static EquipmentRarity RollRarity()
         {
             return rarityList.GetItem();
+        }
+
+        public const float MaxAttackDelay = 5.0f;
+        public const float MinAttackDelay = 0.01f;
+        public static float GetAttackDelay(float attackSpeed)
+        {
+            return Utils.Lerp(MaxAttackDelay, MinAttackDelay, attackSpeed / 100);
         }
     }
 }

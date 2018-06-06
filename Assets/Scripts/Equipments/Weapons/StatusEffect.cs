@@ -19,7 +19,6 @@ namespace Assets.Scripts.Equipments.Weapons
         Slow,
         Weaken,
         Vulnerable,
-        Stunned,
-
+        Stunned
     }
 }

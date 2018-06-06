@@ -4,7 +4,7 @@
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Utils
         public void RemoveItem(T item, float weight)
         {
             var diff = this.GetWeight(item) - weight;
-            if (diff< 0)
+            if (diff < 0)
             {
                 throw new IndexOutOfRangeException("Item doesn't exist or does not have enough weight");
             }
@@ -99,7 +99,7 @@ namespace Assets.Scripts.Utils
         public T GetItem()
         {
             var stoppingPofloat = GlobalRandom.NextFloat() * this.totalWeight;
-            foreach(var item in this.items.ToList())
+            foreach (var item in this.items.ToList())
             {
                 if (stoppingPofloat < item.Value)
                 {

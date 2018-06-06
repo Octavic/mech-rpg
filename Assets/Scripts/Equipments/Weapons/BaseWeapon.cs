@@ -29,33 +29,6 @@ namespace Assets.Scripts.Equipments.Weapons
         public bool ShouldGround;
 
         /// <summary>
-        /// If the weapon is being fired right now
-        /// </summary>
-        protected bool _isFiring;
-
-        /// <summary>
-        /// Called when the bu
-        /// </summary>
-        public override void OnPressStart()
-        {
-            this._isFiring = true;
-            this.Animatable.PlayClip("fire");
-            this.EquippedOnArm.PlayClip("fire");
-            base.OnPressStart();
-        }
-
-        /// <summary>
-        /// Called when the weapon is released
-        /// </summary>
-        public override void OnLongRelease()
-        {
-            this._isFiring = false;
-            this.Animatable.PlayClip("still");
-            this.EquippedOnArm.PlayClip("still");
-            base.OnLongRelease();
-        }
-
-        /// <summary>
         /// Called when the weapon is equipped
         /// </summary>
         public virtual void OnEquip(MechArm newArm)
@@ -76,19 +49,6 @@ namespace Assets.Scripts.Equipments.Weapons
             this.Animatable = this.GetComponent<Animatable>();
 
             base.Start();
-        }
-
-        /// <summary>
-        /// Called one per frame
-        /// </summary>
-        protected override void Update()
-        {
-            if (this._isFiring)
-            {
-                MainCamera.CurrentInstance.Shake(0.05f);
-            }
-
-            base.Update();
         }
     }
 }
