@@ -21,7 +21,7 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// The animatable component
         /// </summary>
-        Animatable Animatable;
+        protected Animatable Animatable;
 
         /// <summary>
         /// If using the weapon should prevent the mech from moving

@@ -24,7 +24,7 @@ namespace Assets.Scripts.Equipments.Weapons
         public float PelletCount;
 
         private bool _isFiring;
-        private float _weaponCooldown;
+        private float _cooldown;
 
         /// <summary>
         /// Stats about the weapon
@@ -35,8 +35,20 @@ namespace Assets.Scripts.Equipments.Weapons
         public override void OnPressStart()
         {
             this._isFiring = true;
-            this.Fire();
             base.OnPressStart();
+        }
+
+        public override void OnShortRelease()
+        {
+            this._isFiring = false;
+            base.OnShortRelease();
+        }
+
+        public override void OnLongRelease()
+        {
+            base.OnLongRelease();
+            this._isFiring = false;
+            base.OnLongRelease();
         }
 
         /// <summary>
@@ -44,6 +56,8 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void Fire()
         {
+            this.EquippedOnArm.PlayClip("fire");
+            this.Animatable.PlayClip("fire");
             var inaccuracy = (100 - this.BaseStats.Accuracy) / 100 * GlobalRandom.NextFloat() * Mathf.PI;
             if (GlobalRandom.NextBool())
             {
@@ -67,6 +81,27 @@ namespace Assets.Scripts.Equipments.Weapons
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Called once per frame
+        /// </summary>
+        protected override void Update()
+        {
+            if (this._cooldown >= 0)
+            {
+                this._cooldown -= Time.deltaTime;
+            }
+
+            if (this._isFiring)
+            {
+                if (this._cooldown <= 0)
+                {
+                    this.Fire();
+                    this._cooldown = Config.GetAttackDelay(this.BaseStats.AttackSpeed);
+                }
+            }
+            base.Update();
         }
     }
 }
