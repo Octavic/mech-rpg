@@ -61,8 +61,9 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void Fire()
         {
-            this.EquippedOnArm.PlayClip("fire");
-            this.Animatable.PlayClip("fire");
+            var attackSpeed = this.BaseStats.AttackSpeed / 100;
+            this.EquippedOnArm.PlayClip("fire", 1/attackSpeed);
+            this.Animatable.PlayClip("fire", 1 / attackSpeed);
 
             int shootCount = (int)this.PelletCount;
             float diff = this.PelletCount - shootCount;

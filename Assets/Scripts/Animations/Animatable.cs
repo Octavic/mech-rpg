@@ -40,24 +40,26 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// The sprite renderer component
         /// </summary>
-        protected new SpriteRenderer renderer;
+        protected SpriteRenderer _renderer;
 
         /// <summary>
         /// The clip currently going on
         /// </summary>
-        private AnimatableClip currentClip;
-        private int currentIndex;
-        private float timeTillNextFrame;
+        private AnimatableClip _currentClip;
+        private int _currentIndex;
+        private float _speedModifier;
+        private float _timeTillNextFrame;
 
         /// <summary>
         /// Switches to the target clip
         /// </summary>
         /// <param name="clipName">The target clip</param>
         /// <param name="shouldRestart">If the clipname is the same, should the clip start</param>
-        public void PlayClip(string clipName, bool shouldRestart = false)
+        /// <param name="speedModifier">The speed modifier</param>
+        public void PlayClip(string clipName, float speedModifier = 1.0f, bool shouldRestart = false)
         {
             // If the same clip is playing and flag is set, do nothing
-            if (this.currentClip != null && this.currentClip.Name == clipName && !shouldRestart)
+            if (this._currentClip != null && this._currentClip.Name == clipName && !shouldRestart)
             {
                 return;
             }
@@ -69,7 +71,7 @@ namespace Assets.Scripts.Animations
                 return;
             }
 
-            this.PlayClip(clip);
+            this.PlayClip(clip, speedModifier);
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace Assets.Scripts.Animations
         protected virtual void Start()
         {
             this.Sprites = Resources.LoadAll<Sprite>(this.SpriteSheetPath).ToList();
-            this.renderer = this.GetComponent<SpriteRenderer>();
+            this._renderer = this.GetComponent<SpriteRenderer>();
 
             this.AnimationHash = new Dictionary<string, AnimatableClip>();
 
@@ -96,7 +98,7 @@ namespace Assets.Scripts.Animations
                 }
             }
 
-            this.renderer = this.GetComponent<SpriteRenderer>();
+            this._renderer = this.GetComponent<SpriteRenderer>();
         }
 
         /// <summary>
@@ -105,58 +107,60 @@ namespace Assets.Scripts.Animations
         protected virtual void Update()
         {
             // Nothing to play
-            if (this.currentClip == null)
+            if (this._currentClip == null)
             {
                 return;
             }
 
-            this.timeTillNextFrame -= Time.deltaTime;
+            this._timeTillNextFrame -= Time.deltaTime;
 
             // Not time to switch yet
-            if (this.timeTillNextFrame > 0)
+            if (this._timeTillNextFrame > 0)
             {
                 return;
             }
 
-            this.currentIndex++;
+            this._currentIndex++;
 
             // Reached the end of clip
-            if (this.currentIndex >= this.currentClip.ClipCount)
+            if (this._currentIndex >= this._currentClip.ClipCount)
             {
-                var nextClip = this.currentClip.TransitTo;
+                var nextClip = this._currentClip.TransitTo;
                 if (!String.IsNullOrEmpty(nextClip))
                 {
-                    this.PlayClip(nextClip, true);
+                    this.PlayClip(nextClip, this._speedModifier, true);
                 }
                 else
                 {
-                    this.currentClip = null;
+                    this._currentClip = null;
                 }
 
                 return;
             }
 
-            var targetIndex = this.currentClip.SpriteIndexes[this.currentIndex];
+            var targetIndex = this._currentClip.SpriteIndexes[this._currentIndex];
             if (targetIndex >= this.Sprites.Count)
             {
-                Debug.LogError("Sprite index out of range: " + this.currentIndex);
+                Debug.LogError("Sprite index out of range: " + this._currentIndex);
                 return;
             }
 
-            this.renderer.sprite = this.Sprites[targetIndex];
-            this.timeTillNextFrame = this.currentClip.Delay;
+            this._renderer.sprite = this.Sprites[targetIndex];
+            this._timeTillNextFrame = this._currentClip.Delay * this._speedModifier;
         }
 
         /// <summary>
         /// Plays the target clip
         /// </summary>
         /// <param name="targetClip">Target clip to be played</param>
-        private void PlayClip(AnimatableClip targetClip)
+        /// <param name="speedModifier">The speed modifier</param>
+        private void PlayClip(AnimatableClip targetClip, float speedModifier = 1.0f)
         {
-            this.currentClip = targetClip;
-            this.currentIndex = 0;
-            this.timeTillNextFrame = targetClip.Delay;
-            this.renderer.sprite = this.Sprites[targetClip.StartingIndex];
+            this._currentClip = targetClip;
+            this._currentIndex = 0;
+            this._timeTillNextFrame = targetClip.Delay * speedModifier;
+            this._renderer.sprite = this.Sprites[targetClip.StartingIndex];
+            this._speedModifier = speedModifier;
         }
     }
 }
