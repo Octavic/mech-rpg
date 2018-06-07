@@ -39,7 +39,7 @@ namespace Assets.Scripts
         /// <returns></returns>
         public static bool NextBool()
         {
-            return r.Next(1) == 0;
+            return r.Next(2) == 0;
         }
 
         /// <summary>

@@ -1,4 +1,9 @@
-﻿
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="Config.cs">
+//    Copyright (c) Yifei Xu .  All rights reserved.
+//  </copyright>
+//  --------------------------------------------------------------------------------------------------------------------
+
 namespace Assets.Scripts.Equipments
 {
     using System;
@@ -6,6 +11,9 @@ namespace Assets.Scripts.Equipments
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// Contains equipment related config and util functions
+    /// </summary>
     public static class Config
     {
         private static WeightedList<EquipmentRarity> rarityList = new WeightedList<EquipmentRarity>();
@@ -18,8 +26,8 @@ namespace Assets.Scripts.Equipments
             rarityList.AddItem(EquipmentRarity.Common, 100);
             rarityList.AddItem(EquipmentRarity.Uncommon, 60);
             rarityList.AddItem(EquipmentRarity.Rare, 30);
-            rarityList.AddItem(EquipmentRarity.Epic, 7);
-            rarityList.AddItem(EquipmentRarity.Legendary, 2.5f);
+            rarityList.AddItem(EquipmentRarity.Epic, 10);
+            rarityList.AddItem(EquipmentRarity.Legendary, 4f);
         }
 
         /// <summary>
@@ -31,11 +39,9 @@ namespace Assets.Scripts.Equipments
             return rarityList.GetItem();
         }
 
-        public const float MaxAttackDelay = 5.0f;
-        public const float MinAttackDelay = 0.01f;
         public static float GetAttackDelay(float attackSpeed)
         {
-            return Utils.Lerp(MaxAttackDelay, MinAttackDelay, attackSpeed / 100);
+            return Utils.Lerp(5.0f, 0.01f, attackSpeed / 100);
         }
     }
 }

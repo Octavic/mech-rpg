@@ -23,6 +23,11 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public float PelletCount;
 
+        /// <summary>
+        /// The bulletline prefab
+        /// </summary>
+        public SegmentLine BulletLinePrefab;
+
         private bool _isFiring;
         private float _cooldown;
 
@@ -58,27 +63,40 @@ namespace Assets.Scripts.Equipments.Weapons
         {
             this.EquippedOnArm.PlayClip("fire");
             this.Animatable.PlayClip("fire");
-            var inaccuracy = (100 - this.BaseStats.Accuracy) / 100 * GlobalRandom.NextFloat() * Mathf.PI;
-            if (GlobalRandom.NextBool())
+
+            int shootCount = (int)this.PelletCount;
+            float diff = this.PelletCount - shootCount;
+            if (GlobalRandom.NextFloat() < diff)
             {
-                inaccuracy *= -1;
+                shootCount++;
             }
 
-            var shootX = Mathf.Cos(inaccuracy);
-            var shootY = Mathf.Sin(inaccuracy);
-            if (!this.Mech.IsFacingRight)
+            for (int shoot = 0; shoot < shootCount; shoot++)
             {
-                shootX *= -1;
-            }
-
-            var rayCast = Physics2D.RaycastAll(this.MuzzleLocation.transform.position, new Vector2(shootX, shootY));
-            for (var i = 0; i < rayCast.Length; i++)
-            {
-                var hittable = rayCast[i].collider.GetComponent<IHittable>();
-                if (hittable != null)
+                var inaccuracy = (100 - this.BaseStats.Accuracy) / 200 * GlobalRandom.NextFloat() * Mathf.PI;
+                if (GlobalRandom.NextBool())
                 {
-                    hittable.OnHit(this.BaseHit);
-                    break;
+                    inaccuracy *= -1;
+                }
+
+                var shootX = Mathf.Cos(inaccuracy);
+                var shootY = Mathf.Sin(inaccuracy);
+                if (!this.Mech.IsFacingRight)
+                {
+                    shootX *= -1;
+                }
+
+                var rayCast = Physics2D.RaycastAll(this.MuzzleLocation.transform.position, new Vector2(shootX, shootY));
+                for (var i = 0; i < rayCast.Length; i++)
+                {
+                    var hittable = rayCast[i].collider.GetComponent<IHittable>();
+                    if (hittable != null)
+                    {
+                        hittable.OnHit(this.BaseHit);
+                        var newBullet = Instantiate(this.BulletLinePrefab);
+                        newBullet.Connect(this.MuzzleLocation.transform.position, rayCast[i].point);
+                        break;
+                    }
                 }
             }
         }

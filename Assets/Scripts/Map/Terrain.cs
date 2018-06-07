@@ -4,7 +4,7 @@
 //  </copyright>
 //  --------------------------------------------------------------------------------------------------------------------
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Map
 {
     using System;
     using System.Collections.Generic;
@@ -12,11 +12,12 @@ namespace Assets.Scripts
     using System.Text;
     using UnityEngine;
     using Mech;
+    using Equipments.Weapons;
 
     /// <summary>
     /// Defines the terrain
     /// </summary>
-    public class Terrain : MonoBehaviour
+    public class Terrain : MonoBehaviour, IHittable
     {
         public void OnTriggerEnter2D(Collider2D collision)
         {
@@ -34,6 +35,10 @@ namespace Assets.Scripts
             {
                 floorCheck.Mech.IsAirborne = true;
             }
+        }
+
+        public void OnHit(WeaponHitStat hit)
+        {
         }
     }
 }
