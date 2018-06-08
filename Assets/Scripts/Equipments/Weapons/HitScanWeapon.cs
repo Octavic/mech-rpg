@@ -26,7 +26,7 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// The bulletline prefab
         /// </summary>
-        public SegmentLine BulletLinePrefab;
+        public BulletLine BulletLinePrefab;
 
         private bool _isFiring;
         private float _cooldown;
@@ -61,9 +61,8 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void Fire()
         {
-            var attackSpeed = this.BaseStats.AttackSpeed / 100;
-            this.EquippedOnArm.PlayClip("fire", 1/attackSpeed);
-            this.Animatable.PlayClip("fire", 1 / attackSpeed);
+            this.EquippedOnArm.PlayClip("fire");
+            this.Animatable.PlayClip("fire");
 
             int shootCount = (int)this.PelletCount;
             float diff = this.PelletCount - shootCount;
@@ -95,7 +94,7 @@ namespace Assets.Scripts.Equipments.Weapons
                     {
                         hittable.OnHit(this.BaseHit);
                         var newBullet = Instantiate(this.BulletLinePrefab);
-                        newBullet.Connect(this.MuzzleLocation.transform.position, rayCast[i].point);
+                        newBullet.OnBulletHit(this.MuzzleLocation.transform.position, rayCast[i]);
                         break;
                     }
                 }

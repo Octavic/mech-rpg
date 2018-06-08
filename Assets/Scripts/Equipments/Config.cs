@@ -41,7 +41,7 @@ namespace Assets.Scripts.Equipments
 
         public static float GetAttackDelay(float attackSpeed)
         {
-            return Utils.Lerp(5.0f, 0.01f, attackSpeed / 100);
+            return Utils.Lerp(2.0f, 0.01f, attackSpeed / 100);
         }
     }
 }

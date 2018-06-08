@@ -32,6 +32,7 @@ namespace Assets.Scripts.Mech
     public abstract class BaseMech : MonoBehaviour
     {
         public BaseEquipment TEMP_Weapon;
+        public BaseEquipment TEMP_Weapon2;
 
         /// <summary>
         /// Id of the mech
@@ -182,7 +183,9 @@ namespace Assets.Scripts.Mech
             this.EffectiveStats = this.BaseStats;
             this.DerivedStats = new MechDerivedStats(this.EffectiveStats);
             this.IsFacingRight = true;
+
             this.Body.TopArm.Equipped = this.TEMP_Weapon;
+            this.Body.BottomArm.Equipped = this.TEMP_Weapon2;
 
             this.IsAirborne = true;
         }
@@ -216,6 +219,15 @@ namespace Assets.Scripts.Mech
             else if (Input.GetKeyUp(KeyCode.J) && this.RightArm.Equipped != null)
             {
                 this.RightArm.Equipped.OnLongRelease();
+            }
+
+            if (Input.GetKeyDown(KeyCode.K) && this.leftArm.Equipped != null)
+            {
+                this.leftArm.Equipped.OnPressStart();
+            }
+            else if (Input.GetKeyUp(KeyCode.K) && this.leftArm.Equipped != null)
+            {
+                this.leftArm.Equipped.OnLongRelease();
             }
         }
     }
