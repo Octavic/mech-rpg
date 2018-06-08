@@ -24,6 +24,11 @@ namespace Assets.Scripts.Equipments.Weapons
         public float PelletCount;
 
         /// <summary>
+        /// The screen shake each time the gun fire
+        /// </summary>
+        public float ScreenShake;
+
+        /// <summary>
         /// The bulletline prefab
         /// </summary>
         public BulletLine BulletLinePrefab;
@@ -70,6 +75,8 @@ namespace Assets.Scripts.Equipments.Weapons
             {
                 shootCount++;
             }
+
+            MainCamera.CurrentInstance.Shake(this.ScreenShake);
 
             for (int shoot = 0; shoot < shootCount; shoot++)
             {

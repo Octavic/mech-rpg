@@ -51,7 +51,7 @@ namespace Assets.Scripts
         /// </summary>
         /// <param name="magnitue">The initial magnitude of the shake</param>
         /// <param name="decayFactor">How fast the magnitude decays</param>
-        public void Shake(float magnitue, float decayFactor = 0.7f)
+        public void Shake(float magnitue, float decayFactor = 0.2f)
         {
             this._magnitude = magnitue;
             this._deacyFactor = decayFactor;
