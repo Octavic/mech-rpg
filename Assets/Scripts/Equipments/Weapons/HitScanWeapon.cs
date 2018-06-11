@@ -66,8 +66,8 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void Fire()
         {
-            this.EquippedOnArm.PlayClip("fire");
-            this.Animatable.PlayClip("fire");
+            this.EquippedOnArm.PlayClip("fire", 1.0f, true);
+            this.Animatable.PlayClip("fire", 1.0f, true);
 
             int shootCount = (int)this.PelletCount;
             float diff = this.PelletCount - shootCount;
@@ -88,10 +88,16 @@ namespace Assets.Scripts.Equipments.Weapons
 
                 var shootX = Mathf.Cos(inaccuracy);
                 var shootY = Mathf.Sin(inaccuracy);
+
+                var hitX = this.BaseHit.KnockBack.x;
                 if (!this.Mech.IsFacingRight)
                 {
                     shootX *= -1;
+                    hitX *= -1;
                 }
+
+                var adjustedHit = new WeaponHitStat(this.BaseHit);
+                adjustedHit.KnockBack = new Vector2(hitX, this.BaseHit.KnockBack.y);
 
                 var rayCast = Physics2D.RaycastAll(this.MuzzleLocation.transform.position, new Vector2(shootX, shootY));
                 for (var i = 0; i < rayCast.Length; i++)
@@ -99,7 +105,7 @@ namespace Assets.Scripts.Equipments.Weapons
                     var hittable = rayCast[i].collider.GetComponent<IHittable>();
                     if (hittable != null)
                     {
-                        hittable.OnHit(this.BaseHit);
+                        hittable.OnHit(adjustedHit);
                         var newBullet = Instantiate(this.BulletLinePrefab);
                         newBullet.OnBulletHit(this.MuzzleLocation.transform.position, rayCast[i]);
                         break;

@@ -19,10 +19,23 @@ namespace Assets.Scripts.Equipments.Weapons
     public class WeaponHitStat
     {
         /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        public WeaponHitStat(WeaponHitStat hit)
+        {
+            this.Damage = hit.Damage;
+            this.HitStunSeconds = hit.HitStunSeconds;
+            this.Recoil = hit.Recoil;
+            this.Impact = hit.Impact;
+            this.KnockBack = hit.KnockBack;
+        }
+
+        /// <summary>
         /// The damage stats
         /// </summary>
         public float Damage;
         public float HitStunSeconds;
+        public float Recoil;
         public float Impact;
         public Vector2 KnockBack;
     }

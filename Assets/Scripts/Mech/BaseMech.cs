@@ -13,6 +13,7 @@ namespace Assets.Scripts.Mech
     using UnityEngine;
     using Animations;
     using Equipments;
+    using Map;
 
     /// <summary>
     /// A collection of mech body parts
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Mech
     /// <summary>
     /// The base mech object
     /// </summary>
-    public abstract class BaseMech : MonoBehaviour
+    public abstract class BaseMech : KnockBackableMapEntity
     {
         public BaseEquipment TEMP_Weapon;
         public BaseEquipment TEMP_Weapon2;
@@ -132,6 +133,11 @@ namespace Assets.Scripts.Mech
         /// </summary>
         public void Move(float xMovement, bool isJumping)
         {
+            if (this.IsInHitStun)
+            {
+                return;
+            }
+
             // Apply movement vector and flip mech if moving other direction
             if (xMovement != 0)
             {
@@ -177,7 +183,7 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// Used for initialization
         /// </summary>
-        protected virtual void Start()
+        protected override void Start()
         {
             this.MechRigidbody = this.GetComponent<Rigidbody2D>();
             this.EffectiveStats = this.BaseStats;
@@ -188,6 +194,8 @@ namespace Assets.Scripts.Mech
             this.Body.BottomArm.Equipped = this.TEMP_Weapon2;
 
             this.IsAirborne = true;
+
+            base.Start();
         }
 
         /// <summary>
@@ -198,7 +206,7 @@ namespace Assets.Scripts.Mech
             var oldVelocity = this.Velocity;
             var maxSpeed = this.DerivedStats.TopSpeed;
 
-            //  Limit max horizontal speed before applying  
+            // Limit max horizontal speed before applying  
             if (Math.Abs(oldVelocity.x) > maxSpeed)
             {
                 this.Velocity = new Vector2(Math.Sign(oldVelocity.x) * maxSpeed, oldVelocity.y);
@@ -210,7 +218,7 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// Called once per frame
         /// </summary>
-        protected void Update()
+        protected override void Update()
         {
             if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
             {
@@ -229,6 +237,8 @@ namespace Assets.Scripts.Mech
             {
                 this.leftArm.Equipped.OnLongRelease();
             }
+
+            base.Update();
         }
     }
 }

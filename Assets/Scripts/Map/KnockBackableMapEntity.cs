@@ -24,12 +24,33 @@ namespace Assets.Scripts.Map
         }
 
         /// <summary>
+        /// The current knockback force
+        /// </summary>
+        protected Vector2? KnockBack
+        {
+            get
+            {
+                return this._knockback;
+            }
+        }
+        private Vector2? _knockback;
+
+        /// <summary>
         /// How much hit stun is left
         /// </summary>
         protected float _hitStunLeft;
 
+        /// <summary>
+        /// Clears the knockback
+        /// </summary>
+        protected void ClearKnockback()
+        {
+            this._knockback = null;
+        }
+
         public virtual void ApplyKnockback(Vector2 direction, float knockBackForce, float hitStun)
         {
+            this._knockback = direction.normalized * knockBackForce;
             this._hitStunLeft = hitStun;
         }
 
@@ -41,6 +62,29 @@ namespace Assets.Scripts.Map
         {
             this.ApplyKnockback(hit.KnockBack, hit.Impact, hit.HitStunSeconds);
             base.OnHit(hit);
+        }
+
+        /// <summary>
+        /// Called once per frame
+        /// </summary>
+        protected override void Update()
+        {
+            if (this._knockback.HasValue)
+            {
+                this.transform.position += (Vector3)this.KnockBack.Value * Time.deltaTime;
+                this._knockback *= 0.8f;
+                if (this._knockback.Value.magnitude <= 0.001)
+                {
+                    this.ClearKnockback();
+                }
+            }
+
+            if (this._hitStunLeft > 0)
+            {
+                this._hitStunLeft -= Time.deltaTime;
+            }
+
+            base.Update();
         }
     }
 }
