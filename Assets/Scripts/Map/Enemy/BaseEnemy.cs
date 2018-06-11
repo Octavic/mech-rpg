@@ -68,6 +68,10 @@ namespace Assets.Scripts.Map.Enemy
             base.Start();
         }
 
+        /// <summary>
+        /// Called when the entity is hit
+        /// </summary>
+        /// <param name="hit">The weapon hit that went through</param>
         public override void OnHit(WeaponHitStat hit)
         {
             this.CurrentHP -= hit.Damage;

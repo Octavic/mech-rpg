@@ -22,6 +22,11 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public DelayedSelfDestroy SplashPrefab;
 
+        /// <summary>
+        /// Called when the bullet h its
+        /// </summary>
+        /// <param name="muzzleLocation">Location of the muzzle</param>
+        /// <param name="hit">The hit to draw the line</param>
         public void OnBulletHit(Vector2 muzzleLocation, RaycastHit2D hit)
         {
             var hitPos = hit.transform.position;
