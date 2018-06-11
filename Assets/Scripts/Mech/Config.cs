@@ -41,7 +41,7 @@ namespace Assets.Scripts.Mech
         {
             Lerpables = new Dictionary<Lerpable, LerpableValue>();
             Lerpables[Lerpable.TopSpeed] = new LerpableValue(0.03f, 0.06f);
-            Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.01f, 0.02f);
+            Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.003f, 0.008f);
             Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.03f, 0.04f);
         }
 

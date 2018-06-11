@@ -66,9 +66,13 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void Fire()
         {
+            var facingRightFactor = this.Mech.IsFacingRight ? 1 : -1;
+
+            // Set overriding animation
             this.EquippedOnArm.PlayClip("fire", 1.0f, true);
             this.Animatable.PlayClip("fire", 1.0f, true);
 
+            // Set shoot pellet count
             int shootCount = (int)this.PelletCount;
             float diff = this.PelletCount - shootCount;
             if (GlobalRandom.NextFloat() < diff)
@@ -76,38 +80,41 @@ namespace Assets.Scripts.Equipments.Weapons
                 shootCount++;
             }
 
+            // Camera shake
             MainCamera.CurrentInstance.Shake(this.ScreenShake);
 
+            // Adjust knock back
+            var hitX = this.BaseHit.KnockBack.x * facingRightFactor;
+            var adjustedHit = new WeaponHitStat(this.BaseHit);
+            adjustedHit.KnockBack = new Vector2(hitX, this.BaseHit.KnockBack.y);
+
+            // Apply recoil
+            var recoilX = -this.BaseHit.Recoil * facingRightFactor;
+            this.Mech.ApplyKnockback(new Vector2(recoilX, 0), this.BaseHit.Recoil,0);
+
+            // Fire  all pellets
             for (int shoot = 0; shoot < shootCount; shoot++)
             {
+                // Determine inaccuracy
                 var inaccuracy = (100 - this.BaseStats.Accuracy) / 200 * GlobalRandom.NextFloat() * Mathf.PI;
                 if (GlobalRandom.NextBool())
                 {
                     inaccuracy *= -1;
                 }
 
-                var shootX = Mathf.Cos(inaccuracy);
+                var shootX = Mathf.Cos(inaccuracy) * facingRightFactor;
                 var shootY = Mathf.Sin(inaccuracy);
 
-                var hitX = this.BaseHit.KnockBack.x;
-                if (!this.Mech.IsFacingRight)
+                var rayCastHits = Physics2D.RaycastAll(this.MuzzleLocation.transform.position, new Vector2(shootX, shootY));
+                for (var i = 0; i < rayCastHits.Length; i++)
                 {
-                    shootX *= -1;
-                    hitX *= -1;
-                }
-
-                var adjustedHit = new WeaponHitStat(this.BaseHit);
-                adjustedHit.KnockBack = new Vector2(hitX, this.BaseHit.KnockBack.y);
-
-                var rayCast = Physics2D.RaycastAll(this.MuzzleLocation.transform.position, new Vector2(shootX, shootY));
-                for (var i = 0; i < rayCast.Length; i++)
-                {
-                    var hittable = rayCast[i].collider.GetComponent<IHittable>();
+                    var curHit = rayCastHits[i];
+                    var hittable = curHit.collider.GetComponent<IHittable>();
                     if (hittable != null)
                     {
                         hittable.OnHit(adjustedHit);
                         var newBullet = Instantiate(this.BulletLinePrefab);
-                        newBullet.OnBulletHit(this.MuzzleLocation.transform.position, rayCast[i]);
+                        newBullet.OnBulletHit(this.MuzzleLocation.transform.position, curHit);
                         break;
                     }
                 }

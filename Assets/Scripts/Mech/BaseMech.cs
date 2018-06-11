@@ -201,7 +201,7 @@ namespace Assets.Scripts.Mech
         /// <summary>
         /// Called once per frame
         /// </summary>
-        protected virtual void FixedUpdate()
+        protected override void FixedUpdate()
         {
             var oldVelocity = this.Velocity;
             var maxSpeed = this.DerivedStats.TopSpeed;
@@ -238,7 +238,7 @@ namespace Assets.Scripts.Mech
                 this.leftArm.Equipped.OnLongRelease();
             }
 
-            base.Update();
+            base.FixedUpdate();
         }
     }
 }

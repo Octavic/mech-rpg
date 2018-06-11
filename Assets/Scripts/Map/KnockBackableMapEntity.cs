@@ -67,7 +67,7 @@ namespace Assets.Scripts.Map
         /// <summary>
         /// Called once per frame
         /// </summary>
-        protected override void Update()
+        protected override void FixedUpdate()
         {
             if (this._knockback.HasValue)
             {

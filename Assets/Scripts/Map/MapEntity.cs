@@ -30,5 +30,12 @@ namespace Assets.Scripts.Map
         protected virtual void Update()
         {
         }
+
+        /// <summary>
+        /// Called once 1/30 of a second
+        /// </summary>
+        protected virtual void FixedUpdate()
+        {
+        }
     }
 }
