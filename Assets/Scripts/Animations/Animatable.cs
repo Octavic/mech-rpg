@@ -28,6 +28,17 @@ namespace Assets.Scripts.Animations
         public List<AnimatableClip> Animations;
 
         /// <summary>
+        /// Gets the name of the current clip
+        /// </summary>
+        public string CurrentPlaying
+        {
+            get
+            {
+                return this._currentClip != null ? this._currentClip.Name : null;
+            }
+        }
+
+        /// <summary>
         /// A hash of name=>animation
         /// </summary>
         private Dictionary<string, AnimatableClip> AnimationHash;
