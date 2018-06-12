@@ -16,6 +16,6 @@ namespace Assets.Scripts
     /// </summary>
     public static class Tags
     {
-        public const string LevelController = "LevelController";
+        public const string GameController = "GameController";
     }
 }

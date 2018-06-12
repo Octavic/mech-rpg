@@ -25,6 +25,15 @@ namespace Assets.Scripts
         public int PlayerIndex;
 
         /// <summary>
+        /// Used for initialization
+        /// </summary>
+        protected override void Start()
+        {
+            GameController.CurrentInstance.RegisterPlayer(this);
+            base.Start();
+        }
+
+        /// <summary>
         /// Called once per frame
         /// </summary>
         protected override void FixedUpdate()
