@@ -10,6 +10,7 @@ namespace Assets.Scripts
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using UnityEngine;
 
     public static class Utils
     {
@@ -23,6 +24,11 @@ namespace Assets.Scripts
         public static float Lerp(float start, float end, float diff)
         {
             return (end - start) * diff + start;
+        }
+
+        public static float Atan2(Vector2 v)
+        {
+            return (float)Math.Atan2(v.y, v.x);
         }
     }
 }

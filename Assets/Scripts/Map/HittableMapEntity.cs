@@ -34,6 +34,12 @@ namespace Assets.Scripts.Map
             {
                 this.OnHit(hitbox.HitStat);
             }
+
+            var projectile = collider.GetComponent<WeaponProjectile>();
+            if (projectile != null)
+            {
+                projectile.Detonate();
+            }
         }
     }
 }

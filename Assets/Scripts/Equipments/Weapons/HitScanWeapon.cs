@@ -14,7 +14,7 @@ namespace Assets.Scripts.Equipments.Weapons
     using Map;
 
     /// <summary>
-    /// Defines a hitscan weapon
+    /// Defines a hit scan weapon
     /// </summary>
     public class HitScanWeapon : BaseWeapon
     {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Equipments.Weapons
         public float ScreenShake;
 
         /// <summary>
-        /// The bulletline prefab
+        /// The bulletLine prefab
         /// </summary>
         public BulletLine BulletLinePrefab;
 
@@ -56,7 +56,6 @@ namespace Assets.Scripts.Equipments.Weapons
 
         public override void OnLongRelease()
         {
-            base.OnLongRelease();
             this._isFiring = false;
             base.OnLongRelease();
         }

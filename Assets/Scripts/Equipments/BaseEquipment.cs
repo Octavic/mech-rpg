@@ -83,6 +83,10 @@ namespace Assets.Scripts.Equipments
         protected virtual void Update()
         {
         }
+        
+        /// The call order goes as following
+        /// Short Press: OnPressStart() => OnShortRelease()
+        /// Long Press: OnPressStart() => OnLongPressStart() => OnLongPressRelease()
 
         /// <summary>
         /// Called when the button to fire is pressed and then released
@@ -95,6 +99,13 @@ namespace Assets.Scripts.Equipments
         /// Called when the button is held down 
         /// </summary>
         public virtual void OnPressStart()
+        {
+        }
+
+        /// <summary>
+        /// Called when the player has the button held long enough
+        /// </summary>
+        public virtual void OnLongPressStart()
         {
         }
 

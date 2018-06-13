@@ -18,7 +18,17 @@ namespace Assets.Scripts.Equipments.Weapons
     public class WeaponProjectile : DelayedSelfDestroy
     {
         /// <summary>
-        /// The actual hitbox
+        /// Velocity of the projectile
+        /// </summary>
+        public Vector2 Velocity;
+
+        /// <summary>
+        /// The end velocity goal
+        /// </summary>
+        public Vector2 VelocityGoal;
+
+        /// <summary>
+        /// The actual hit box
         /// </summary>
         public WeaponHitbox Hitbox;
 
@@ -38,6 +48,16 @@ namespace Assets.Scripts.Equipments.Weapons
         {
             this.Hitbox.gameObject.SetActive(false);
             this.ResetTimer(false);
+        }
+
+        /// <summary>
+        /// Called once every 1/30 of a second
+        /// </summary>
+        protected void FixedUpdate()
+        {
+            this.Velocity = Vector2.Lerp(this.Velocity, this.VelocityGoal, 0.3f);
+            this.transform.position += (Vector3)this.Velocity;
+            this.transform.eulerAngles = new Vector3(0, 0, Utils.Atan2(this.Velocity) * Mathf.Rad2Deg);
         }
     }
 }

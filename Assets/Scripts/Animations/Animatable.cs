@@ -131,7 +131,7 @@ namespace Assets.Scripts.Animations
                 return;
             }
 
-            this._currentIndex++;
+                this._currentIndex++;
 
             // Reached the end of clip
             if (this._currentIndex >= this._currentClip.ClipCount)

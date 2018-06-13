@@ -16,5 +16,17 @@ namespace Assets.Scripts.Equipments.Weapons
     /// </summary>
     public class ProjectileWeapon : BaseWeapon
     {
+        /// <summary>
+        /// The prefab for a projectile to be fired
+        /// </summary>
+        public WeaponProjectile ProjectilePrefab;
+
+        /// <summary>
+        /// Called when the player holds the button
+        /// </summary>
+        public override void OnPressStart()
+        {
+            base.OnPressStart();
+        }
     }
 }
