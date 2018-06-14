@@ -23,9 +23,9 @@ namespace Assets.Scripts.Equipments.Weapons
         public Vector2 Velocity;
 
         /// <summary>
-        /// The end velocity goal
+        /// How much the velocity changes per second
         /// </summary>
-        public Vector2 VelocityGoal;
+        public Vector2 Acceleration;
 
         /// <summary>
         /// The actual hit box
@@ -38,6 +38,9 @@ namespace Assets.Scripts.Equipments.Weapons
         public void Detonate()
         {
             this.Hitbox.gameObject.SetActive(true);
+            this.Velocity = new Vector2();
+            this.Acceleration = new Vector2();
+            this.GetComponent<SpriteRenderer>().enabled = false;
             this.ResetTimer(true);
         }
 
@@ -55,8 +58,8 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected void FixedUpdate()
         {
-            this.Velocity = Vector2.Lerp(this.Velocity, this.VelocityGoal, 0.3f);
-            this.transform.position += (Vector3)this.Velocity;
+            this.Velocity += this.Acceleration * Time.deltaTime;
+            this.transform.position += (Vector3)this.Velocity * Time.deltaTime ;
             this.transform.eulerAngles = new Vector3(0, 0, Utils.Atan2(this.Velocity) * Mathf.Rad2Deg);
         }
     }
