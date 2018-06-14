@@ -16,6 +16,19 @@ namespace Assets.Scripts.Map
     public class HittableMapEntity : MapEntity, IHittable
     {
         /// <summary>
+        /// Faction of this entity
+        /// </summary>
+        public Factions EntityFaction;
+
+        public Factions Faction
+        {
+            get
+            {
+                return this.EntityFaction;
+            }
+        }
+
+        /// <summary>
         /// Called when the map  entity is hit
         /// </summary>
         /// <param name="hit">The weapon hitbox</param>
@@ -38,7 +51,7 @@ namespace Assets.Scripts.Map
             var projectile = collider.GetComponent<WeaponProjectile>();
             if (projectile != null)
             {
-                projectile.Detonate();
+                projectile.OnHit(this);
             }
         }
     }

@@ -19,6 +19,14 @@ namespace Assets.Scripts.Map
     /// </summary>
     public class Terrain : MonoBehaviour, IHittable
     {
+        public Factions Faction
+        {
+            get
+            {
+                return Factions.Environment;
+            }
+        }
+
         public void OnTriggerEnter2D(Collider2D collision)
         {
             var floorCheck = collision.GetComponent<MechFloorCheck>();

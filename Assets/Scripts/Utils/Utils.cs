@@ -26,9 +26,19 @@ namespace Assets.Scripts
             return (end - start) * diff + start;
         }
 
+        /// <summary>
+        /// Extends the default atan2 function with a vector
+        /// </summary>
+        /// <param name="v">Target vector</param>
+        /// <returns>the angle, in rad, of the vector</returns>
         public static float Atan2(Vector2 v)
         {
             return (float)Math.Atan2(v.y, v.x);
+        }
+
+        public static Vector2 FlipX(Vector2 v)
+        {
+            return new Vector2(-v.x, v.y);
         }
     }
 }

@@ -6,6 +6,7 @@
 
 namespace Assets.Scripts.Equipments.Weapons
 {
+    using Map;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// Defines a projectile that's shot by a weapon
     /// </summary>
-    public class WeaponProjectile : DelayedSelfDestroy
+    public abstract class WeaponProjectile : DelayedSelfDestroy
     {
         /// <summary>
         /// Velocity of the projectile
@@ -28,35 +29,23 @@ namespace Assets.Scripts.Equipments.Weapons
         public Vector2 Acceleration;
 
         /// <summary>
-        /// The actual hit box
-        /// </summary>
-        public WeaponHitbox Hitbox;
-
-        /// <summary>
         /// Called when the projectile hits something
         /// </summary>
-        public void Detonate()
-        {
-            this.Hitbox.gameObject.SetActive(true);
-            this.Velocity = new Vector2();
-            this.Acceleration = new Vector2();
-            this.GetComponent<SpriteRenderer>().enabled = false;
-            this.ResetTimer(true);
-        }
+        /// <param name="hittable">The "something" that's hit</param>
+        public abstract void OnHit(IHittable hittable);
 
         /// <summary>
         /// Used for initialization
         /// </summary>
-        protected new void Start()
+        protected override void Start()
         {
-            this.Hitbox.gameObject.SetActive(false);
             this.ResetTimer(false);
         }
 
         /// <summary>
         /// Called once every 1/30 of a second
         /// </summary>
-        protected void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             this.Velocity += this.Acceleration * Time.deltaTime;
             this.transform.position += (Vector3)this.Velocity * Time.deltaTime ;

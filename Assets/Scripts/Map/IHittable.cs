@@ -12,6 +12,8 @@ namespace Assets.Scripts.Map
     /// </summary>
     public interface IHittable
     {
+        Factions Faction { get; }
+
         /// <summary>
         /// Called when the entity is hit
         /// </summary>

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// Defines a hit scan weapon
     /// </summary>
-    public class HitScanWeapon : BaseWeapon
+    public class HitScanWeapon : RapidFireWeapon
     {
         /// <summary>
         /// The pellet count. When it's not a whole number, a random die is rolled to see if an extra bullet is shot
@@ -33,37 +33,15 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public BulletLine BulletLinePrefab;
 
-        private bool _isFiring;
-        private float _cooldown;
-
         /// <summary>
-        /// Stats about the weapon
+        /// The hit of the bullet
         /// </summary>
-        public GameObject MuzzleLocation;
         public WeaponHitStat BaseHit;
-
-        public override void OnPressStart()
-        {
-            this._isFiring = true;
-            base.OnPressStart();
-        }
-
-        public override void OnShortRelease()
-        {
-            this._isFiring = false;
-            base.OnShortRelease();
-        }
-
-        public override void OnLongRelease()
-        {
-            this._isFiring = false;
-            base.OnLongRelease();
-        }
 
         /// <summary>
         /// Fires the weapon
         /// </summary>
-        protected void Fire()
+        public override void Fire()
         {
             var facingRightFactor = this.Mech.IsFacingRight ? 1 : -1;
 
@@ -88,8 +66,8 @@ namespace Assets.Scripts.Equipments.Weapons
             adjustedHit.KnockBack = new Vector2(hitX, this.BaseHit.KnockBack.y);
 
             // Apply recoil
-            var recoilX = -this.BaseHit.Recoil * facingRightFactor;
-            this.Mech.ApplyKnockback(new Vector2(recoilX, 0), this.BaseHit.Recoil,0);
+            var recoilX = -this.BaseStats.Recoil * facingRightFactor;
+            this.Mech.ApplyKnockback(new Vector2(recoilX, 0), this.BaseStats.Recoil,0);
 
             // Fire  all pellets
             for (int shoot = 0; shoot < shootCount; shoot++)
@@ -109,7 +87,7 @@ namespace Assets.Scripts.Equipments.Weapons
                 {
                     var curHit = rayCastHits[i];
                     var hittable = curHit.collider.GetComponent<IHittable>();
-                    if (hittable != null)
+                    if (hittable != null && hittable.Faction != adjustedHit.Faction)
                     {
                         hittable.OnHit(adjustedHit);
                         var newBullet = Instantiate(this.BulletLinePrefab);
@@ -118,27 +96,6 @@ namespace Assets.Scripts.Equipments.Weapons
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Called once per frame
-        /// </summary>
-        protected override void Update()
-        {
-            if (this._cooldown >= 0)
-            {
-                this._cooldown -= Time.deltaTime;
-            }
-
-            if (this._isFiring)
-            {
-                if (this._cooldown <= 0)
-                {
-                    this.Fire();
-                    this._cooldown = Config.GetAttackDelay(this.BaseStats.AttackSpeed);
-                }
-            }
-            base.Update();
         }
     }
 }

@@ -25,9 +25,9 @@ namespace Assets.Scripts.Equipments.Weapons
         {
             this.Damage = hit.Damage;
             this.HitStunSeconds = hit.HitStunSeconds;
-            this.Recoil = hit.Recoil;
             this.Impact = hit.Impact;
             this.KnockBack = hit.KnockBack;
+            this.Faction = hit.Faction;
         }
 
         /// <summary>
@@ -35,8 +35,12 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public float Damage;
         public float HitStunSeconds;
-        public float Recoil;
         public float Impact;
         public Vector2 KnockBack;
+
+        /// <summary>
+        /// Which faction this hit belongs to
+        /// </summary>
+        public Factions Faction;
     }
 }

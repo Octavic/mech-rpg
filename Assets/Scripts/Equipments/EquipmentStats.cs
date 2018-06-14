@@ -19,6 +19,7 @@ namespace Assets.Scripts.Equipments
     {
         public float Damage;
         public float Accuracy;
+        public float Recoil;
         public float AttackSpeed;
         public float ReloadSpeed;
         public float CritChance;

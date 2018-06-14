@@ -14,7 +14,7 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// Defines a weapon that fires a projectile
     /// </summary>
-    public class ProjectileWeapon : BaseWeapon
+    public class ProjectileWeapon : RapidFireWeapon
     {
         /// <summary>
         /// The prefab for a projectile to be fired
@@ -22,11 +22,18 @@ namespace Assets.Scripts.Equipments.Weapons
         public WeaponProjectile ProjectilePrefab;
 
         /// <summary>
-        /// Called when the player holds the button
+        /// Called when the weapon is fired
         /// </summary>
-        public override void OnPressStart()
+        public override void Fire()
         {
-            base.OnPressStart();
+            var newProjectile = Instantiate(this.ProjectilePrefab);
+            if (!this.Mech.IsFacingRight)
+            {
+                newProjectile.Velocity = Utils.FlipX(newProjectile.Velocity);
+                newProjectile.Acceleration = Utils.FlipX(newProjectile.Acceleration);
+            }
+
+            newProjectile.transform.position = this.MuzzleLocation.transform.position;
         }
     }
 }

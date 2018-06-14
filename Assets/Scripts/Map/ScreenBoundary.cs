@@ -18,6 +18,14 @@ namespace Assets.Scripts.Map
     /// </summary>
     public class ScreenBoundary : MonoBehaviour, IHittable
     {
+        public Factions Faction
+        {
+            get
+            {
+                return Factions.Environment;
+            }
+        }
+
         public void OnHit(WeaponHitStat hit)
         {
         }
