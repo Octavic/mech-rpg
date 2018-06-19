@@ -172,6 +172,7 @@ namespace Assets.Scripts.Mech
 
             if (isJumping)
             {
+                MainCamera.CurrentInstance.Shake(0.02f);
                 this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
             }
             else if (this.IsAirborne)

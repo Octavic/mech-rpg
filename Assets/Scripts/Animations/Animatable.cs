@@ -66,8 +66,8 @@ namespace Assets.Scripts.Animations
         /// </summary>
         /// <param name="clipName">The target clip</param>
         /// <param name="shouldRestart">If the clipname is the same, should the clip start</param>
-        /// <param name="speedModifier">The speed modifier</param>
-        public void PlayClip(string clipName, float speedModifier = 1.0f, bool shouldRestart = false)
+        /// <param name="delayModifier">The speed modifier</param>
+        public void PlayClip(string clipName, float delayModifier = 1.0f, bool shouldRestart = false)
         {
             // If the same clip is playing and flag is set, do nothing
             if (this._currentClip != null && this._currentClip.Name == clipName && !shouldRestart)
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Animations
                 return;
             }
 
-            this.PlayClip(clip, speedModifier);
+            this.PlayClip(clip, delayModifier);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Assets.Scripts.Animations
                 return;
             }
 
-                this._currentIndex++;
+            this._currentIndex++;
 
             // Reached the end of clip
             if (this._currentIndex >= this._currentClip.ClipCount)
