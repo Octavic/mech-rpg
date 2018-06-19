@@ -32,7 +32,8 @@ namespace Assets.Scripts.Mech
     {
         TopSpeed,
         InitialJumpSpeed,
-        FallSpeed
+        FallSpeed,
+        DashSpeed,
     }
 
     public static class Config
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Mech
             Lerpables[Lerpable.TopSpeed] = new LerpableValue(0.03f, 0.06f);
             Lerpables[Lerpable.InitialJumpSpeed] = new LerpableValue(0.003f, 0.008f);
             Lerpables[Lerpable.FallSpeed] = new LerpableValue(0.03f, 0.04f);
+            Lerpables[Lerpable.DashSpeed] = new LerpableValue(0.1f, 0.5f);
         }
 
         /// <summary>

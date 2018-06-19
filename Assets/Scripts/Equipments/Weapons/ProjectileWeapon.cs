@@ -26,6 +26,9 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public override void Fire()
         {
+            this.Animatable.PlayClip("fire");
+            this.EquippedOnArm.PlayClip("fire");
+
             var newProjectile = Instantiate(this.ProjectilePrefab);
             if (!this.Mech.IsFacingRight)
             {

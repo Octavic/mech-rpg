@@ -172,8 +172,22 @@ namespace Assets.Scripts.Mech
 
             if (isJumping)
             {
-                MainCamera.CurrentInstance.Shake(0.02f);
-                this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
+                if (Math.Abs(xMovement) > 0.8f)
+                {
+
+                    var dashSpeed = this.DerivedStats.DashSpeed;
+                    Debug.Log(dashSpeed);
+                    if (!this.IsFacingRight)
+                    {
+                        dashSpeed *= -1;
+                    }
+                    this.Velocity += new Vector2(dashSpeed, 0);
+                }
+                else
+                {
+                    MainCamera.CurrentInstance.Shake(0.02f);
+                    this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
+                }
             }
             else if (this.IsAirborne)
             {
@@ -210,7 +224,7 @@ namespace Assets.Scripts.Mech
             // Limit max horizontal speed before applying  
             if (Math.Abs(oldVelocity.x) > maxSpeed)
             {
-                this.Velocity = new Vector2(Math.Sign(oldVelocity.x) * maxSpeed, oldVelocity.y);
+                this.Velocity = new Vector2(Utils.Lerp(oldVelocity.x, maxSpeed, 0.6f), oldVelocity.y);
             }
 
             this.MechRigidbody.MovePosition(this.transform.position + (Vector3)this.Velocity);

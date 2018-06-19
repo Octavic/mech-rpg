@@ -23,6 +23,8 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public void Detonate()
         {
+            MainCamera.CurrentInstance.Shake(0.2f);
+
             this.Hitbox.gameObject.SetActive(true);
             this.Velocity = new Vector2();
             this.Acceleration = new Vector2();
