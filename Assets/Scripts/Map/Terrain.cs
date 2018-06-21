@@ -34,6 +34,18 @@ namespace Assets.Scripts.Map
             {
                 floorCheck.Mech.IsAirborne = false;
             }
+
+            var hitbox = collision.GetComponent<WeaponHitbox>();
+            if (hitbox != null)
+            {
+                this.OnHit(hitbox.HitStat);
+            }
+
+            var projectile = collision.GetComponent<WeaponProjectile>();
+            if (projectile != null)
+            {
+                projectile.OnHit(this);
+            }
         }
 
         public void OnTriggerExit2D(Collider2D collision)

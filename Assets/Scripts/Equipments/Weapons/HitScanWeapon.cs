@@ -19,6 +19,11 @@ namespace Assets.Scripts.Equipments.Weapons
     public class HitScanWeapon : RapidFireWeapon
     {
         /// <summary>
+        /// Location of the weapon's muzzle
+        /// </summary>
+        public GameObject MuzzleLocation;
+
+        /// <summary>
         /// The pellet count. When it's not a whole number, a random die is rolled to see if an extra bullet is shot
         /// </summary>
         public float PelletCount;

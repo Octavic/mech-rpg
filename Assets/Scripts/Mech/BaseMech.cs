@@ -172,9 +172,10 @@ namespace Assets.Scripts.Mech
 
             if (isJumping)
             {
+                // Execute dash
                 if (Math.Abs(xMovement) > 0.8f)
                 {
-
+                    this.Body.Legs.PlayClip("dash");
                     var dashSpeed = this.DerivedStats.DashSpeed;
                     Debug.Log(dashSpeed);
                     if (!this.IsFacingRight)
