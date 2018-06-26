@@ -33,11 +33,24 @@ namespace Assets.Scripts.Equipments.Weapons
         public WeaponProjectile ProjectilePrefab;
 
         /// <summary>
+        /// How many projectiles has been fired for this sequence
+        /// </summary>
+        private int _fired;
+        private float _fireDelay;
+
+        /// <summary>
         /// Spawns a new projectile
         /// </summary>
         /// <returns></returns>
         protected virtual WeaponProjectile SpawnProjectile()
         {
+            var newProjectile = Instantiate(this.ProjectilePrefab);
+            if (!this.Mech.IsFacingRight)
+            {
+                newProjectile.Velocity = Utils.FlipX(newProjectile.Velocity);
+            }
+
+            return newProjectile;
         }
 
         /// <summary>
@@ -45,20 +58,39 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         public override void Fire()
         {
-            foreach (var muzzleLocation in this.MuzzleLocations)
+            this._fired = 0;
+        }
+
+        /// <summary>
+        /// Used for initialization
+        /// </summary>
+        protected override void Start()
+        {
+            this._fired = this.MuzzleLocations.Count;
+            base.Start();
+        }
+
+        /// <summary>
+        /// Called once per frame
+        /// </summary>
+        protected override void Update()
+        {
+            if (this._fireDelay > 0)
             {
-                this.Animatable.PlayClip("fire");
-                this.EquippedOnArm.PlayClip("fire");
-
-                var newProjectile = Instantiate(this.ProjectilePrefab);
-                if (!this.Mech.IsFacingRight)
-                {
-                    newProjectile.Velocity = Utils.FlipX(newProjectile.Velocity);
-                    newProjectile.Acceleration = Utils.FlipX(newProjectile.Acceleration);
-                }
-
-                newProjectile.transform.position = muzzleLocation.transform.position;
+                this._fireDelay -= Time.deltaTime;
             }
+
+            if (this._fireDelay <=0  && this._fired < this.MuzzleLocations.Count)
+            {
+                this.Animatable.PlayClip("fire", 1, true);
+                this.EquippedOnArm.PlayClip("fire", 1, true);
+
+                var newProjectile = this.SpawnProjectile();
+                newProjectile.transform.position = this.MuzzleLocations[this._fired].transform.position;
+                this._fired++;
+                this._fireDelay = this.FireDelay;
+            }
+            base.Update();
         }
     }
 }

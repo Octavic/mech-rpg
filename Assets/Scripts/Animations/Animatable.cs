@@ -15,7 +15,7 @@ namespace Assets.Scripts.Animations
     /// <summary>
     /// Defines an object that can be animated
     /// </summary>
-    public class Animatable : MonoBehaviour
+    public class Animatable : MonoBehaviour, IPlayable
     {
         /// <summary>
         /// Path to the sprite sheet

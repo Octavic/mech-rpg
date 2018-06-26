@@ -27,7 +27,6 @@ namespace Assets.Scripts.Equipments.Weapons
 
             this.Hitbox.gameObject.SetActive(true);
             this.Velocity = new Vector2();
-            this.Acceleration = new Vector2();
             this.GetComponent<SpriteRenderer>().enabled = false;
             this.ResetTimer(true);
         }

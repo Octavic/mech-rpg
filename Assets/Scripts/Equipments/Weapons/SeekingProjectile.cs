@@ -18,7 +18,7 @@ namespace Assets.Scripts.Equipments.Weapons
     public class SeekingProjectile : DetonateOnImpactProjectile
     {
         /// <summary>
-        /// How fast the projectile can turn per second
+        /// How fast the projectile can turn
         /// </summary>
         public float MaxTurning;
 
@@ -48,9 +48,9 @@ namespace Assets.Scripts.Equipments.Weapons
         {
             if (this._target != null)
             {
-                var goalAcceleration = this._target.transform.position - this.transform.position;
-                var diffAcceleratio = Vector2.Lerp(this.Acceleration, goalAcceleration, 0.2f);
-                this.Acceleration = diffAcceleratio.normalized * this.Acceleration.magnitude;
+                Vector2 positionDiff = this._target.transform.position - this.transform.position;
+                var angleDiff = Utils.AngleDiffDeg(this.Velocity, positionDiff);
+                this.Velocity = this.Velocity.RotateDeg(Math.Sign(angleDiff) * this.MaxTurning * Time.deltaTime);
             }
 
             base.Update();
