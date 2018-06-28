@@ -42,7 +42,7 @@ namespace Assets.Scripts.Mech
 
                     value.EquippedOnArm = this;
                     value.transform.parent = this.transform;
-                    value.transform.localPosition = Config.WeaponHandOffset;
+                    value.transform.localPosition = this.IsOnTop ? Config.WeaponHandOffset : Utils.FlipX(Config.WeaponHandOffset);
                 }
 
                 this._equipped = value;

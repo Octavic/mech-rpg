@@ -77,9 +77,17 @@ namespace Assets.Scripts.Animations
         public void PlayClip(string clipName, float delayModifier = 1.0f, bool shouldRestart = false)
         {
             // If the same clip is playing and flag is not set, do nothing
-            if (this._currentClip != null && this._currentClip.Name == clipName && !shouldRestart)
+            if (this._currentClip != null)
             {
-                return;
+                if (this._currentClip.Name == clipName && !shouldRestart)
+                {
+                    return;
+                }
+
+                if (this._currentClip.IsUninterrputable)
+                {
+                    return;
+                }
             }
 
             AnimatableClip clip;

@@ -129,6 +129,11 @@ namespace Assets.Scripts.Mech
         private Vector2 Velocity { get; set; }
 
         /// <summary>
+        /// The dash cooldown
+        /// </summary>
+        private float _dashCooldown;
+
+        /// <summary>
         /// Moves the mech sideways
         /// </summary>
         public void Move(float xMovement, bool isJumping)
@@ -147,7 +152,7 @@ namespace Assets.Scripts.Mech
             else
             {
                 this.Velocity = Vector2.Lerp(this.Velocity, new Vector2(0, this.Velocity.y), Config.SpeedDecayFactor);
-            }
+            }   
 
             // Apply animations
             if (this.IsAirborne)
@@ -173,7 +178,7 @@ namespace Assets.Scripts.Mech
             if (isJumping)
             {
                 // Execute dash
-                if (Math.Abs(xMovement) > 0.8f)
+                if (this._dashCooldown <= 0 && !this.IsAirborne && Math.Abs(xMovement) > 0.8f)
                 {
                     this.Body.Legs.PlayClip("dash");
                     var dashSpeed = this.DerivedStats.DashSpeed;
@@ -183,6 +188,7 @@ namespace Assets.Scripts.Mech
                         dashSpeed *= -1;
                     }
                     this.Velocity += new Vector2(dashSpeed, 0);
+                    this._dashCooldown = 1.0f;
                 }
                 else
                 {
@@ -236,6 +242,11 @@ namespace Assets.Scripts.Mech
         /// </summary>
         protected override void Update()
         {
+            if (this._dashCooldown > 0)
+            {
+                this._dashCooldown -= Time.deltaTime;
+            }
+
             if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
             {
                 this.RightArm.Equipped.OnPressStart();
@@ -254,7 +265,7 @@ namespace Assets.Scripts.Mech
                 this.leftArm.Equipped.OnLongRelease();
             }
 
-            base.FixedUpdate();
+            base.Update();
         }
     }
 }

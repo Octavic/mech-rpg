@@ -18,12 +18,14 @@ namespace Assets.Scripts.Equipments.Weapons
     /// </summary>
     public class DetonateOnImpactProjectile : WeaponProjectile
     {
+        public float ScreenShake;
+
         /// <summary>
         /// Called when the projectile hits something
         /// </summary>
         public void Detonate()
         {
-            MainCamera.CurrentInstance.Shake(0.5f);
+            MainCamera.CurrentInstance.Shake(this.ScreenShake);
 
             this.Hitbox.gameObject.SetActive(true);
             this.Velocity = new Vector2();

@@ -45,6 +45,11 @@ namespace Assets.Scripts.Animations
         public string TransitTo;
 
         /// <summary>
+        /// If the clip is uninterrputable
+        /// </summary>
+        public bool IsUninterrputable;
+
+        /// <summary>
         /// Initializes the clip
         /// </summary>
         public void Initialize()
