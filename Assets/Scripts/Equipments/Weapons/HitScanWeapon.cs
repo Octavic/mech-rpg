@@ -52,8 +52,8 @@ namespace Assets.Scripts.Equipments.Weapons
 
             // Set overriding animation
             var attackSpeed = (100 - this.BaseStats.AttackSpeed) / 100;
-            this.EquippedOnArm.PlayClip("fire", attackSpeed, true);
             this.Animatable.PlayClip("fire", attackSpeed, true);
+            this.EquippedOnArm.PlayClip(this.ArmAnimationClipName, attackSpeed, true);
 
             // Set shoot pellet count
             int shootCount = (int)this.PelletCount;

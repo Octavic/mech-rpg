@@ -83,7 +83,7 @@ namespace Assets.Scripts.Equipments.Weapons
             if (this._fireDelay <=0  && this._fired < this.MuzzleLocations.Count)
             {
                 this.Animatable.PlayClip("fire", 1, true);
-                this.EquippedOnArm.PlayClip("fire", 1, true);
+                this.EquippedOnArm.PlayClip(this.ArmAnimationClipName, 1, true);
 
                 var newProjectile = this.SpawnProjectile();
                 newProjectile.transform.position = this.MuzzleLocations[this._fired].transform.position;
