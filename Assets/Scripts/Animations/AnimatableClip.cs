@@ -29,9 +29,13 @@ namespace Assets.Scripts.Animations
         public List<int> SpriteIndexes;
 
         /// <summary>
-        /// Or use a starting index + a length
+        /// The starting index of the clip
         /// </summary>
         public int StartingIndex;
+
+        /// <summary>
+        /// How many sprites rae in the clip
+        /// </summary>
         public int ClipCount;
 
         /// <summary>

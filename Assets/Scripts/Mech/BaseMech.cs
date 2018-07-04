@@ -212,8 +212,12 @@ namespace Assets.Scripts.Mech
             this.DerivedStats = new MechDerivedStats(this.EffectiveStats);
             this.IsFacingRight = true;
 
-            this.Body.TopArm.Equipped = this.TEMP_Weapon;
-            this.Body.BottomArm.Equipped = this.TEMP_Weapon2;
+            var weapon1 = Instantiate(this.TEMP_Weapon);
+            weapon1.Mech = this;
+            var weapon2 = Instantiate(this.TEMP_Weapon2);
+            weapon2.Mech = this;
+            this.Body.TopArm.Equipped = weapon1;
+            this.Body.BottomArm.Equipped = weapon2;
 
             this.IsAirborne = true;
 

@@ -51,9 +51,8 @@ namespace Assets.Scripts.Equipments.Weapons
             var facingRightFactor = this.Mech.IsFacingRight ? 1 : -1;
 
             // Set overriding animation
-            var attackSpeed = (100 - this.BaseStats.AttackSpeed) / 100;
-            this.Animatable.PlayClip("fire", attackSpeed, true);
-            this.EquippedOnArm.PlayClip(this.ArmAnimationClipName, attackSpeed, true);
+            this.Animatable.PlayClip("fire", 1, true);
+            this.EquippedOnArm.PlayClip(this.ArmAnimationClipName, 1, true);
 
             // Set shoot pellet count
             int shootCount = (int)this.PelletCount;

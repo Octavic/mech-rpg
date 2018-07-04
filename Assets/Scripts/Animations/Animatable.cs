@@ -110,8 +110,8 @@ namespace Assets.Scripts.Animations
             {
                 this._decals = Resources.LoadAll<Sprite>(this.DecalSheetPath).ToList();
             }
-            this._renderer = this.GetComponent<SpriteRenderer>();
 
+            this._renderer = this.GetComponent<SpriteRenderer>();
             this.AnimationHash = new Dictionary<string, AnimatableClip>();
 
             foreach (var animation in this.Animations)
@@ -128,7 +128,6 @@ namespace Assets.Scripts.Animations
                 }
             }
 
-            this._renderer = this.GetComponent<SpriteRenderer>();
         }
 
         /// <summary>
