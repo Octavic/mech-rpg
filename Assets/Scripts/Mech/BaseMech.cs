@@ -181,6 +181,7 @@ namespace Assets.Scripts.Mech
                 if (this._dashCooldown <= 0 && !this.IsAirborne && Math.Abs(xMovement) > 0.8f)
                 {
                     this.Body.Legs.PlayClip("dash");
+                    this.Body.Cab.PlayClip("dash");
                     var dashSpeed = this.DerivedStats.DashSpeed;
                     Debug.Log(dashSpeed);
                     if (!this.IsFacingRight)

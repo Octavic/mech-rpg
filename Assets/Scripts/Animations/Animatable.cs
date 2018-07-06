@@ -157,6 +157,7 @@ namespace Assets.Scripts.Animations
                 var nextClip = this._currentClip.TransitTo;
                 if (!String.IsNullOrEmpty(nextClip))
                 {
+                    this._currentClip = null;
                     this.PlayClip(nextClip, this._speedModifier, true);
                 }
                 else
