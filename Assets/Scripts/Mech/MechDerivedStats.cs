@@ -19,6 +19,7 @@ namespace Assets.Scripts.Mech
         public float TopSpeed { get; private set; }
         public float InitialJumpSpeed { get; private set; }
         public float FallSpeed { get; private set; }
+        public float DashSpeed { get; private set; }
 
         public MechDerivedStats(MechStats baseStats)
         {
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Mech
             this.TopSpeed = Config.Lerpables[Lerpable.TopSpeed].Apply(baseStats.Mobility / 100);
             this.InitialJumpSpeed = Config.Lerpables[Lerpable.InitialJumpSpeed].Apply(baseStats.Mobility / 100);
             this.FallSpeed = Config.Lerpables[Lerpable.FallSpeed].Apply(baseStats.Mobility / 100);
+            this.DashSpeed = Config.Lerpables[Lerpable.DashSpeed].Apply(baseStats.Mobility / 100);
         }
     }
 }

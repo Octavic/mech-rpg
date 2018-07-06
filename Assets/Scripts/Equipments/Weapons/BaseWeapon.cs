@@ -29,6 +29,11 @@ namespace Assets.Scripts.Equipments.Weapons
         public bool ShouldGround;
 
         /// <summary>
+        /// Clip name for the arm's animation
+        /// </summary>
+        public string ArmAnimationClipName;
+
+        /// <summary>
         /// Called when the weapon is equipped
         /// </summary>
         public virtual void OnEquip(MechArm newArm)

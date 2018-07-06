@@ -29,9 +29,13 @@ namespace Assets.Scripts.Animations
         public List<int> SpriteIndexes;
 
         /// <summary>
-        /// Or use a starting index + a length
+        /// The starting index of the clip
         /// </summary>
         public int StartingIndex;
+
+        /// <summary>
+        /// How many sprites rae in the clip
+        /// </summary>
         public int ClipCount;
 
         /// <summary>
@@ -43,6 +47,11 @@ namespace Assets.Scripts.Animations
         /// If the animation should transition to another state automatically when it's finished
         /// </summary>
         public string TransitTo;
+
+        /// <summary>
+        /// If the clip is uninterrputable
+        /// </summary>
+        public bool IsUninterrputable;
 
         /// <summary>
         /// Initializes the clip

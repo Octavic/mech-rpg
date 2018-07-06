@@ -40,5 +40,44 @@ namespace Assets.Scripts
         {
             return new Vector2(-v.x, v.y);
         }
+
+        /// <summary>
+        /// Returns a new vector2 that's rotated x degrees
+        /// </summary>
+        /// <param name="v">Vector</param>
+        /// <param name="degrees">The degrees</param>
+        /// <returns>A new rotated vector2</returns>
+        public static Vector2 RotateDeg(this Vector2 v, float degrees)
+        {
+            return v.RotateRad(degrees * Mathf.Deg2Rad);   
+        }
+
+        public static Vector2 RotateRad(this Vector2 v, float rad)
+        {
+            var sin = Mathf.Sin(rad);
+            var cos = Mathf.Cos(rad);
+            float x = v.x;
+            float y = v.y;
+
+            return new Vector2(cos * x - sin * y, sin * x + cos * y);
+        }
+
+        public static float AngleDiffDeg(float deg1, float deg2)
+        {
+            var diff = (deg2 - deg1) % 360;
+            if (diff > 180)
+            {
+                diff -= 360;
+            }
+
+            return diff;
+        }
+
+        public static float AngleDiffDeg(Vector2 v1, Vector2 v2)
+        {
+            var deg1 = Mathf.Atan2(v1.y, v1.x) * Mathf.Rad2Deg;
+            var deg2 = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+            return AngleDiffDeg(deg1, deg2);
+        }
     }
 }

@@ -24,11 +24,6 @@ namespace Assets.Scripts.Equipments.Weapons
         public Vector2 Velocity;
 
         /// <summary>
-        /// How much the velocity changes per second
-        /// </summary>
-        public Vector2 Acceleration;
-
-        /// <summary>
         /// Called when the projectile hits something
         /// </summary>
         /// <param name="hittable">The "something" that's hit</param>
@@ -47,7 +42,6 @@ namespace Assets.Scripts.Equipments.Weapons
         /// </summary>
         protected virtual void FixedUpdate()
         {
-            this.Velocity += this.Acceleration * Time.deltaTime;
             this.transform.position += (Vector3)this.Velocity * Time.deltaTime ;
             this.transform.eulerAngles = new Vector3(0, 0, Utils.Atan2(this.Velocity) * Mathf.Rad2Deg);
         }

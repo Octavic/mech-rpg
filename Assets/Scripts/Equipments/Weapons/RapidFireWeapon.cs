@@ -17,12 +17,6 @@ namespace Assets.Scripts.Equipments.Weapons
     /// </summary>
     public abstract class RapidFireWeapon: BaseWeapon
     {
-
-        /// <summary>
-        /// Location of the weapon's muzzle
-        /// </summary>
-        public GameObject MuzzleLocation;
-
         /// <summary>
         /// State of the weapon
         /// </summary>

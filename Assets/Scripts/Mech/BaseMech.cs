@@ -129,6 +129,11 @@ namespace Assets.Scripts.Mech
         private Vector2 Velocity { get; set; }
 
         /// <summary>
+        /// The dash cooldown
+        /// </summary>
+        private float _dashCooldown;
+
+        /// <summary>
         /// Moves the mech sideways
         /// </summary>
         public void Move(float xMovement, bool isJumping)
@@ -147,7 +152,7 @@ namespace Assets.Scripts.Mech
             else
             {
                 this.Velocity = Vector2.Lerp(this.Velocity, new Vector2(0, this.Velocity.y), Config.SpeedDecayFactor);
-            }
+            }   
 
             // Apply animations
             if (this.IsAirborne)
@@ -172,8 +177,24 @@ namespace Assets.Scripts.Mech
 
             if (isJumping)
             {
-                MainCamera.CurrentInstance.Shake(0.02f);
-                this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
+                // Execute dash
+                if (this._dashCooldown <= 0 && !this.IsAirborne && Math.Abs(xMovement) > 0.8f)
+                {
+                    this.Body.Legs.PlayClip("dash");
+                    var dashSpeed = this.DerivedStats.DashSpeed;
+                    Debug.Log(dashSpeed);
+                    if (!this.IsFacingRight)
+                    {
+                        dashSpeed *= -1;
+                    }
+                    this.Velocity += new Vector2(dashSpeed, 0);
+                    this._dashCooldown = 1.0f;
+                }
+                else
+                {
+                    MainCamera.CurrentInstance.Shake(0.02f);
+                    this.Velocity += new Vector2(0, this.DerivedStats.InitialJumpSpeed);
+                }
             }
             else if (this.IsAirborne)
             {
@@ -191,8 +212,12 @@ namespace Assets.Scripts.Mech
             this.DerivedStats = new MechDerivedStats(this.EffectiveStats);
             this.IsFacingRight = true;
 
-            this.Body.TopArm.Equipped = this.TEMP_Weapon;
-            this.Body.BottomArm.Equipped = this.TEMP_Weapon2;
+            var weapon1 = Instantiate(this.TEMP_Weapon);
+            weapon1.Mech = this;
+            var weapon2 = Instantiate(this.TEMP_Weapon2);
+            weapon2.Mech = this;
+            this.Body.TopArm.Equipped = weapon1;
+            this.Body.BottomArm.Equipped = weapon2;
 
             this.IsAirborne = true;
 
@@ -210,7 +235,7 @@ namespace Assets.Scripts.Mech
             // Limit max horizontal speed before applying  
             if (Math.Abs(oldVelocity.x) > maxSpeed)
             {
-                this.Velocity = new Vector2(Math.Sign(oldVelocity.x) * maxSpeed, oldVelocity.y);
+                this.Velocity = new Vector2(Utils.Lerp(oldVelocity.x, maxSpeed, 0.6f), oldVelocity.y);
             }
 
             this.MechRigidbody.MovePosition(this.transform.position + (Vector3)this.Velocity);
@@ -221,6 +246,11 @@ namespace Assets.Scripts.Mech
         /// </summary>
         protected override void Update()
         {
+            if (this._dashCooldown > 0)
+            {
+                this._dashCooldown -= Time.deltaTime;
+            }
+
             if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
             {
                 this.RightArm.Equipped.OnPressStart();
@@ -239,7 +269,7 @@ namespace Assets.Scripts.Mech
                 this.leftArm.Equipped.OnLongRelease();
             }
 
-            base.FixedUpdate();
+            base.Update();
         }
     }
 }

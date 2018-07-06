@@ -15,12 +15,18 @@ namespace Assets.Scripts.Animations
     /// <summary>
     /// Defines an object that can be animated
     /// </summary>
-    public class Animatable : MonoBehaviour
+    public class Animatable : MonoBehaviour, IPlayable
     {
         /// <summary>
         /// Path to the sprite sheet
         /// </summary>
         public string SpriteSheetPath;
+
+        /// <summary>
+        /// Path to the decal sprite sheet. The animation will  be duplicated
+        /// </summary>
+        public string DecalSheetPath;
+        public SpriteRenderer DecalRenderer;
 
         /// <summary>
         /// All of the possible animations
@@ -46,7 +52,8 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// The actual sprite sheet's sub sprites
         /// </summary>
-        private List<Sprite> Sprites;
+        private List<Sprite> _sprites;
+        private List<Sprite> _decals;
 
         /// <summary>
         /// The sprite renderer component
@@ -69,10 +76,18 @@ namespace Assets.Scripts.Animations
         /// <param name="delayModifier">The speed modifier</param>
         public void PlayClip(string clipName, float delayModifier = 1.0f, bool shouldRestart = false)
         {
-            // If the same clip is playing and flag is set, do nothing
-            if (this._currentClip != null && this._currentClip.Name == clipName && !shouldRestart)
+            // If the same clip is playing and flag is not set, do nothing
+            if (this._currentClip != null)
             {
-                return;
+                if (this._currentClip.Name == clipName && !shouldRestart)
+                {
+                    return;
+                }
+
+                if (this._currentClip.IsUninterrputable)
+                {
+                    return;
+                }
             }
 
             AnimatableClip clip;
@@ -90,9 +105,13 @@ namespace Assets.Scripts.Animations
         /// </summary>
         protected virtual void Start()
         {
-            this.Sprites = Resources.LoadAll<Sprite>(this.SpriteSheetPath).ToList();
-            this._renderer = this.GetComponent<SpriteRenderer>();
+            this._sprites = Resources.LoadAll<Sprite>(this.SpriteSheetPath).ToList();
+            if (this.DecalRenderer != null)
+            {
+                this._decals = Resources.LoadAll<Sprite>(this.DecalSheetPath).ToList();
+            }
 
+            this._renderer = this.GetComponent<SpriteRenderer>();
             this.AnimationHash = new Dictionary<string, AnimatableClip>();
 
             foreach (var animation in this.Animations)
@@ -109,7 +128,6 @@ namespace Assets.Scripts.Animations
                 }
             }
 
-            this._renderer = this.GetComponent<SpriteRenderer>();
         }
 
         /// <summary>
@@ -150,13 +168,17 @@ namespace Assets.Scripts.Animations
             }
 
             var targetIndex = this._currentClip.SpriteIndexes[this._currentIndex];
-            if (targetIndex >= this.Sprites.Count)
+            if (targetIndex >= this._sprites.Count)
             {
                 Debug.LogError("Sprite index out of range: " + this._currentIndex);
                 return;
             }
 
-            this._renderer.sprite = this.Sprites[targetIndex];
+            this._renderer.sprite = this._sprites[targetIndex];
+            if (this.DecalRenderer != null)
+            {
+                this.DecalRenderer.sprite = this._decals[targetIndex];
+            }
             this._timeTillNextFrame = this._currentClip.Delay * this._speedModifier;
         }
 
@@ -170,7 +192,7 @@ namespace Assets.Scripts.Animations
             this._currentClip = targetClip;
             this._currentIndex = 0;
             this._timeTillNextFrame = targetClip.Delay * speedModifier;
-            this._renderer.sprite = this.Sprites[targetClip.StartingIndex];
+            this._renderer.sprite = this._sprites[targetClip.StartingIndex];
             this._speedModifier = speedModifier;
         }
     }

@@ -19,6 +19,11 @@ namespace Assets.Scripts.Equipments.Weapons
     public class HitScanWeapon : RapidFireWeapon
     {
         /// <summary>
+        /// Location of the weapon's muzzle
+        /// </summary>
+        public GameObject MuzzleLocation;
+
+        /// <summary>
         /// The pellet count. When it's not a whole number, a random die is rolled to see if an extra bullet is shot
         /// </summary>
         public float PelletCount;
@@ -46,9 +51,8 @@ namespace Assets.Scripts.Equipments.Weapons
             var facingRightFactor = this.Mech.IsFacingRight ? 1 : -1;
 
             // Set overriding animation
-            var attackSpeed = (100 - this.BaseStats.AttackSpeed) / 100;
-            this.EquippedOnArm.PlayClip("fire", attackSpeed, true);
-            this.Animatable.PlayClip("fire", attackSpeed, true);
+            this.Animatable.PlayClip("fire", 1, true);
+            this.EquippedOnArm.PlayClip(this.ArmAnimationClipName, 1, true);
 
             // Set shoot pellet count
             int shootCount = (int)this.PelletCount;

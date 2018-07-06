@@ -20,12 +20,40 @@ namespace Assets.Scripts.Map
         /// </summary>
         public Factions EntityFaction;
 
+        /// <summary>
+        /// A list of effects that this entity is immune to
+        /// </summary>
+        public List<Effects> ImmuneTo;
+        private HashSet<Effects> _immuneTo;
+
         public Factions Faction
         {
             get
             {
                 return this.EntityFaction;
             }
+        }
+
+        protected Dictionary<Effects, AppliedEffect> _activeEffects;
+
+        public bool IsAffectedBy(Effects effect)
+        {
+            return this._activeEffects.ContainsKey(effect);
+        }
+        public bool TryApplyEffect(AppliedEffect effect)
+        {
+            if (this._immuneTo.Contains(effect.Effect))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public AppliedEffect GetEffect(Effects effect)
+        {
+            AppliedEffect result;
+            return this._activeEffects.TryGetValue(effect, out result) ? result : null;
         }
 
         /// <summary>
@@ -53,6 +81,26 @@ namespace Assets.Scripts.Map
             {
                 projectile.OnHit(this);
             }
+        }
+
+        /// <summary>
+        /// Called once per fixed duration
+        /// </summary>
+        protected override void FixedUpdate()
+        {
+            var effects = this._activeEffects.Keys.ToList() ;
+            foreach (var effect in effects)
+            {
+                var targetEffect = this._activeEffects[effect];
+                targetEffect.Decay(Time.deltaTime);
+                if (targetEffect.ShouldRemove())
+                {
+                    this._activeEffects.Remove(effect);
+                }
+            }
+            
+
+            base.FixedUpdate();
         }
     }
 }
