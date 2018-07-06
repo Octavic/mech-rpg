@@ -13,6 +13,27 @@ namespace Assets.Scripts.Animations
     using UnityEngine;
 
     /// <summary>
+    /// Defines a clip frame
+    /// </summary>
+    [Serializable]
+    public class ClipFrame
+    {
+        public int Index;
+        public float Delay;
+    }
+
+    /// <summary>
+    /// Automatically adds some frames
+    /// </summary>
+    [Serializable]
+    public class AutoFillFrames
+    {
+        public int StartIndex;
+        public int Length;
+        public float Delay;
+    }
+
+    /// <summary>
     /// Defines a series of sprites to be used as animation
     /// </summary>
     [Serializable]
@@ -26,22 +47,34 @@ namespace Assets.Scripts.Animations
         /// <summary>
         /// In order to define a series of sprites to use, either list them here
         /// </summary>
-        public List<int> SpriteIndexes;
+        public List<ClipFrame> Frames;
+
+        /// <summary>
+        /// A list of frames to be automatically added
+        /// </summary>
+        public List<AutoFillFrames> AutoGenFrames;
 
         /// <summary>
         /// The starting index of the clip
         /// </summary>
-        public int StartingIndex;
+        public int StartingIndex
+        {
+            get
+            {
+                return this.Frames.First().Index;
+            }
+        }
 
         /// <summary>
         /// How many sprites rae in the clip
         /// </summary>
-        public int ClipCount;
-
-        /// <summary>
-        /// How much time to wait in between switching to the next frame
-        /// </summary>
-        public float Delay;
+        public int ClipCount
+        {
+        get
+            {
+                return this.Frames.Count;
+            }
+        }
 
         /// <summary>
         /// If the animation should transition to another state automatically when it's finished
@@ -54,30 +87,19 @@ namespace Assets.Scripts.Animations
         public bool IsUninterrputable;
 
         /// <summary>
-        /// Initializes the clip
+        /// Used for initialization
         /// </summary>
         public void Initialize()
         {
-            var isContinuous = this.ClipCount != 0;
-            var isCustom = this.SpriteIndexes.Count != 0;
-
-            if (!isContinuous && !isCustom)
+            foreach (var autoGenFrame in this.AutoGenFrames)
             {
-                Debug.LogError("Clip is empty: " + this.Name);
-                return;
-            }
-
-            if (isContinuous)
-            {
-                for (int i = 0; i < this.ClipCount; i++)
+                for (int i = 0; i < autoGenFrame.Length; i++)
                 {
-                    this.SpriteIndexes.Add(this.StartingIndex + i);
+                    var newFrame = new ClipFrame();
+                    newFrame.Index = autoGenFrame.StartIndex + i;
+                    newFrame.Delay = autoGenFrame.Delay;
+                    this.Frames.Add(newFrame);
                 }
-            }
-            else
-            {
-                this.StartingIndex = this.SpriteIndexes[0];
-                this.ClipCount = this.SpriteIndexes.Count();
             }
         }
     }
