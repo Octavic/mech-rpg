@@ -151,9 +151,9 @@ namespace Assets.Scripts.Animations
 
             this._currentIndex++;
 
-            // Reached the end of clip
             if (this._currentIndex >= this._currentClip.ClipCount)
             {
+                // Reached the end of clip
                 var nextClip = this._currentClip.TransitTo;
                 if (!String.IsNullOrEmpty(nextClip))
                 {

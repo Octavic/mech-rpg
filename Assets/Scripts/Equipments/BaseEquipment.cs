@@ -83,10 +83,10 @@ namespace Assets.Scripts.Equipments
         protected virtual void Update()
         {
         }
-        
+
         /// The call order goes as following
-        /// Short Press: OnPressStart() => OnShortRelease()
-        /// Long Press: OnPressStart() => OnLongPressStart() => OnLongPressRelease()
+        /// Short Press: OnPressStart() => OnShortRelease() => OnPressRelease()
+        /// Long Press: OnPressStart() => OnLongPressStart() => OnLongPressRelease() => OnPressRelease()
 
         /// <summary>
         /// Called when the button to fire is pressed and then released
@@ -113,6 +113,13 @@ namespace Assets.Scripts.Equipments
         /// Called when the held button is released
         /// </summary>
         public virtual void OnLongRelease()
+        {
+        }
+
+        /// <summary>
+        /// Called when the press ends regardless of long  or short
+        /// </summary>
+        public virtual void OnPressRelease()
         {
         }
     }

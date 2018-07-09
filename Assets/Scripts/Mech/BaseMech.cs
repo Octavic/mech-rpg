@@ -76,7 +76,7 @@ namespace Assets.Scripts.Mech
         /// </summary>
         public bool IsAirborne { get; set; }
 
-        protected MechArm RightArm
+        public MechArm RightArm
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Mech
             }
         }
 
-        protected MechArm leftArm
+        public MechArm LeftArm
         {
             get
             {
@@ -106,13 +106,13 @@ namespace Assets.Scripts.Mech
                 if (value != this._isFacingRight)
                 {
                     this.transform.localScale = new Vector3(value ? 1 : -1, 1, 1);
-                    var leftEquipped = this.leftArm.Unequip();
+                    var leftEquipped = this.LeftArm.Unequip();
                     var rightEquipped = this.RightArm.Unequip();
 
                     this._isFacingRight = value;
 
                     this.RightArm.Equipped = rightEquipped;
-                    this.leftArm.Equipped = leftEquipped;
+                    this.LeftArm.Equipped = leftEquipped;
                 }
             }
         }
@@ -261,13 +261,13 @@ namespace Assets.Scripts.Mech
                 this.RightArm.Equipped.OnLongRelease();
             }
 
-            if (Input.GetKeyDown(KeyCode.K) && this.leftArm.Equipped != null)
+            if (Input.GetKeyDown(KeyCode.K) && this.LeftArm.Equipped != null)
             {
-                this.leftArm.Equipped.OnPressStart();
+                this.LeftArm.Equipped.OnPressStart();
             }
-            else if (Input.GetKeyUp(KeyCode.K) && this.leftArm.Equipped != null)
+            else if (Input.GetKeyUp(KeyCode.K) && this.LeftArm.Equipped != null)
             {
-                this.leftArm.Equipped.OnLongRelease();
+                this.LeftArm.Equipped.OnLongRelease();
             }
 
             base.Update();
