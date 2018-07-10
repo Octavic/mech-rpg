@@ -95,7 +95,7 @@ namespace Assets.Scripts
                     }
                     // Held time is greater than threshold and already triggered, do nothing
                 }
-                else
+                else if (isReleased)
                 {
                     // Button is released, check held time to call right On...Release() trigger
                     if (heldTime > Controls.Config.LongPressDuration)

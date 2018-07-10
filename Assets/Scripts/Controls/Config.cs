@@ -13,6 +13,6 @@ namespace Assets.Scripts.Controls
 
     public static class Config
     {
-        public const float LongPressDuration = 0.5f;
+        public const float LongPressDuration = 0.2f;
     }
 }
