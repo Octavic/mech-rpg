@@ -50,6 +50,11 @@ namespace Assets.Scripts.Equipments
         public EquipmentStats BaseStats;
 
         /// <summary>
+        /// If the weapon has a dual fire mode
+        /// </summary>
+        public abstract bool IsDualFireMode{get; }
+
+        /// <summary>
         /// If the weapon can be mounted on shoulder
         /// </summary>
         public virtual bool IsArmWeapon { get; protected set; }
@@ -81,45 +86,6 @@ namespace Assets.Scripts.Equipments
         /// Called once per frame
         /// </summary>
         protected virtual void Update()
-        {
-        }
-
-        /// The call order goes as following
-        /// Short Press: OnPressStart() => OnShortRelease() => OnPressRelease()
-        /// Long Press: OnPressStart() => OnLongPressStart() => OnLongPressRelease() => OnPressRelease()
-
-        /// <summary>
-        /// Called when the button to fire is pressed and then released
-        /// </summary>
-        public virtual void OnShortRelease()
-        {
-        }
-
-        /// <summary>
-        /// Called when the button is held down 
-        /// </summary>
-        public virtual void OnPressStart()
-        {
-        }
-
-        /// <summary>
-        /// Called when the player has the button held long enough
-        /// </summary>
-        public virtual void OnLongPressStart()
-        {
-        }
-
-        /// <summary>
-        /// Called when the held button is released
-        /// </summary>
-        public virtual void OnLongRelease()
-        {
-        }
-
-        /// <summary>
-        /// Called when the press ends regardless of long  or short
-        /// </summary>
-        public virtual void OnPressRelease()
         {
         }
     }

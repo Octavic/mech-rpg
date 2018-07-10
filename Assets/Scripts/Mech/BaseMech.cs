@@ -252,23 +252,23 @@ namespace Assets.Scripts.Mech
                 this._dashCooldown -= Time.deltaTime;
             }
 
-            if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
-            {
-                this.RightArm.Equipped.OnPressStart();
-            }
-            else if (Input.GetKeyUp(KeyCode.J) && this.RightArm.Equipped != null)
-            {
-                this.RightArm.Equipped.OnLongRelease();
-            }
+            //if (Input.GetKeyDown(KeyCode.J) && this.RightArm.Equipped != null)
+            //{
+            //    this.RightArm.Equipped.OnPressStart();
+            //}
+            //else if (Input.GetKeyUp(KeyCode.J) && this.RightArm.Equipped != null)
+            //{
+            //    this.RightArm.Equipped.OnPressRelease();
+            //}
 
-            if (Input.GetKeyDown(KeyCode.K) && this.LeftArm.Equipped != null)
-            {
-                this.LeftArm.Equipped.OnPressStart();
-            }
-            else if (Input.GetKeyUp(KeyCode.K) && this.LeftArm.Equipped != null)
-            {
-                this.LeftArm.Equipped.OnLongRelease();
-            }
+            //if (Input.GetKeyDown(KeyCode.K) && this.LeftArm.Equipped != null)
+            //{
+            //    this.LeftArm.Equipped.OnPressStart();
+            //}
+            //else if (Input.GetKeyUp(KeyCode.K) && this.LeftArm.Equipped != null)
+            //{
+            //    this.LeftArm.Equipped.OnPressRelease();
+            //}
 
             base.Update();
         }

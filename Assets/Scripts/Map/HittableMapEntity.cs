@@ -25,6 +25,7 @@ namespace Assets.Scripts.Map
         /// </summary>
         public List<Effects> ImmuneTo;
         private HashSet<Effects> _immuneTo;
+        protected Dictionary<Effects, AppliedEffect> _activeEffects;
 
         public Factions Faction
         {
@@ -33,8 +34,6 @@ namespace Assets.Scripts.Map
                 return this.EntityFaction;
             }
         }
-
-        protected Dictionary<Effects, AppliedEffect> _activeEffects;
 
         public bool IsAffectedBy(Effects effect)
         {
@@ -83,6 +82,12 @@ namespace Assets.Scripts.Map
             }
         }
 
+        protected override void Start()
+        {
+            this._immuneTo = new HashSet<Effects>(this.ImmuneTo);
+            base.Start();
+        }
+
         /// <summary>
         /// Called once per fixed duration
         /// </summary>
@@ -98,7 +103,6 @@ namespace Assets.Scripts.Map
                     this._activeEffects.Remove(effect);
                 }
             }
-            
 
             base.FixedUpdate();
         }

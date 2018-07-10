@@ -15,30 +15,30 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// A weapon that when tapped, fires once. And when held, rapidly fires
     /// </summary>
-    public abstract class RapidFireWeapon: BaseWeapon
+    public abstract class RapidFireWeapon: BaseWeapon, IMonoFireMode
     {
+        public override bool IsDualFireMode
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// State of the weapon
         /// </summary>
         private bool _isFiring;
         private float _cooldown;
 
-        public override void OnPressStart()
+        public  void OnPressStart()
         {
             this._isFiring = true;
-            base.OnPressStart();
         }
 
-        public override void OnShortRelease()
+        public void OnPressRelease()
         {
             this._isFiring = false;
-            base.OnShortRelease();
-        }
-
-        public override void OnLongRelease()
-        {
-            this._isFiring = false;
-            base.OnLongRelease();
         }
 
         /// <summary>

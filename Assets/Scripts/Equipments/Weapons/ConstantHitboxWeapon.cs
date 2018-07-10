@@ -15,7 +15,7 @@ namespace Assets.Scripts.Equipments.Weapons
     /// <summary>
     /// Defines a weapon that when fired, activates a constant hitbox (machine gun, laser, etc)
     /// </summary>
-    public abstract class ConstantHitboxWeapon : BaseWeapon
+    public abstract class ConstantHitboxWeapon : BaseWeapon, IMonoFireMode
     {
         /// <summary>
         /// The weapon's hitbox
@@ -25,19 +25,17 @@ namespace Assets.Scripts.Equipments.Weapons
         /// <summary>
         /// Called when the weapon is used
         /// </summary>
-        public override void OnPressStart()
+        public void OnPressStart()
         {
             this.Hitbox.gameObject.SetActive(true);
-            base.OnPressStart();
         }
 
         /// <summary>
         /// Called when the weapon is used
         /// </summary>
-        public override void OnLongRelease()
+        public void OnPressRelease()
         {
             this.Hitbox.gameObject.SetActive(false);
-            base.OnLongRelease();
         }
     }
 }
