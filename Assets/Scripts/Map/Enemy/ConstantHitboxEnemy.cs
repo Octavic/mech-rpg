@@ -17,6 +17,9 @@ namespace Assets.Scripts.Map.Enemy
     /// </summary>
     public class ConstantHitboxEnemy : BaseEnemy
     {
+        public bool CanMoveHorizontal;
+        public bool CanMoveVertical;
+
         /// <summary>
         /// How fast the enemy moves
         /// </summary>
@@ -35,8 +38,30 @@ namespace Assets.Scripts.Map.Enemy
         /// </summary>
         protected override void FixedUpdate()
         {
-            var closestPlayer = GameObject.FindObjectsOfType<PlayerController>().Min(controller => (controller.transform.position - this.transform.position).magnitude);
-            base.Update();
+            var distances =
+                GameObject
+                    .FindObjectsOfType<PlayerController>()
+                    .Select(controller => controller.Mech.transform.position - this.transform.position)
+                    .OrderBy(distance => distance.magnitude);
+
+            if (distances.Count() > 0)
+            {
+                var closest = distances.First();
+                float moveX = this.CanMoveHorizontal ? closest.x : 0; ;
+                float moveY = this.CanMoveVertical ? closest.y : 0;
+
+                var movement = new Vector3(moveX, moveY).normalized * this.MovementSpeed * Time.deltaTime;
+                if (movement.magnitude > closest.magnitude)
+                {
+                    this.transform.position += closest;
+                }
+                else
+                {
+                    this.transform.position += movement;
+                }
+            }
+
+            base.FixedUpdate();
         }
     }
 }
